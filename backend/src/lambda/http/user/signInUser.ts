@@ -19,34 +19,39 @@ const logger = createLogger('signInUser');
 
 export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    logger.info('Processing event', event);
     const signInUserRequest: SignInUserRequest = JSON.parse(event.body);
     const username = prepareUsername(signInUserRequest.username);
-    const password = preparePassword(signInUserRequest.password);
+    logger.info('Processing request', { username: username });
     if (!isValidUsername(username)) {
       logger.error('Invalid username', { username: username });
       return generateErrorResponse(400, 'Invalid username');
     }
+    const password = preparePassword(signInUserRequest.password);
     if (!isValidPassword(password)) {
       logger.error('Invalid password', { username: username });
       return generateErrorResponse(400, 'Invalid password');
     }
-    const user = await getUser(username);
-    if (user == null) {
-      logger.error('Unauthorized user', { username: username });
-      return generateErrorResponse(401, 'Unauthorized user');
+    try {
+      const user = await getUser(username);
+      if (user == null) {
+        logger.error('Unauthorized user', { username: username });
+        return generateErrorResponse(401, 'Unauthorized user');
+      }
+      const matchingPasswords = await comparePasswords(password, user.password);
+      if (!matchingPasswords) {
+        logger.error('Unauthorized user', { username: username });
+        return generateErrorResponse(401, 'Unauthorized user');
+      }
+      return {
+        statusCode: 201,
+        body: JSON.stringify({
+          token: generateToken(user)
+        })
+      };
+    } catch (error) {
+      logger.error(error.message, { username: username });
+      return generateErrorResponse(500, error.message);
     }
-    const matchingPasswords = await comparePasswords(password, user.password);
-    if (!matchingPasswords) {
-      logger.error('Unauthorized user', { username: username });
-      return generateErrorResponse(401, 'Unauthorized user');
-    }
-    return {
-      statusCode: 201,
-      body: JSON.stringify({
-        token: generateToken(user)
-      })
-    };
   }
 );
 

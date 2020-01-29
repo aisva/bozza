@@ -30,6 +30,8 @@ export async function getUser(username: string): Promise<User> {
 
 export async function updateUser(updateUserRequest: UpdateUserRequest, username: string): Promise<void> {
   logger.info('Updating a user', { username: username });
+  const password = await generatePassword(updateUserRequest.newPassword);
+  updateUserRequest.newPassword = password;
   return userAccess.updateUser(updateUserRequest, username);
 }
 

@@ -19,30 +19,35 @@ const logger = createLogger('createUser');
 
 export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    logger.info('Processing event', event);
     const createUserRequest: CreateUserRequest = JSON.parse(event.body);
     const username = prepareUsername(createUserRequest.username);
-    const password = preparePassword(createUserRequest.password);
+    logger.info('Processing request', { username: username });
     if (!isValidUsername(username)) {
       logger.error('Invalid username', { username: createUserRequest.username });
       return generateErrorResponse(400, 'Invalid username');
     }
+    const password = preparePassword(createUserRequest.password);
     if (!isValidPassword(password)) {
       logger.error('Invalid password', { username: createUserRequest.username });
       return generateErrorResponse(400, 'Invalid password');
     }
-    const existingUser = await getUser(username);
-    if (existingUser != null) {
-      logger.error('User already exists', { username: username });
-      return generateErrorResponse(400, 'User already exists');
+    try {
+      const existingUser = await getUser(username);
+      if (existingUser != null) {
+        logger.error('User already exists', { username: username });
+        return generateErrorResponse(400, 'User already exists');
+      }
+      const user = await createUser(createUserRequest);
+      return {
+        statusCode: 201,
+        body: JSON.stringify({
+          token: generateToken(user)
+        })
+      };
+    } catch (error) {
+      logger.error(error.message, { username: username });
+      return generateErrorResponse(500, error.message);
     }
-    const user = await createUser(createUserRequest);
-    return {
-      statusCode: 201,
-      body: JSON.stringify({
-        token: generateToken(user)
-      })
-    };
   }
 );
 
