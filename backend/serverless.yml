@@ -49,6 +49,9 @@ custom:
       - name: SignInUserRequest
         contentType: application/json
         schema: ${file(models/sign-in-user-request.json)}
+      - name: UpdateUserRequest
+        contentType: application/json
+        schema: ${file(models/update-user-request.json)}
 
 functions:
 
@@ -91,6 +94,27 @@ functions:
     iamRoleStatements:
       - Effect: Allow
         Action:
+          - dynamodb:GetItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+
+  UpdateUser:
+    handler: src/lambda/http/user/updateUser.handler
+    events:
+      - http:
+          method: patch
+          path: ${self:provider.environment.VERSION}/${self:provider.environment.USERS_PATH}
+          cors: true
+          authorizer: Auth
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Update a user
+            description: Update a user
+            requestModels:
+              'application/json': UpdateUserRequest
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
           - dynamodb:GetItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
 

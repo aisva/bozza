@@ -4,6 +4,7 @@ import { User } from '../models/User';
 import { UserAccess } from '../dataLayer/userAccess';
 import { CreateUserRequest } from '../requests/CreateUserRequest';
 import { generatePassword } from '../utils/encryption';
+import { UpdateUserRequest } from '../requests/UpdateUserRequest';
 
 const logger = createLogger('userBusinessLogic');
 const userAccess = new UserAccess();
@@ -25,6 +26,11 @@ export async function createUser(createUserRequest: CreateUserRequest): Promise<
 export async function getUser(username: string): Promise<User> {
   logger.info('Getting user', { username: username });
   return userAccess.getUser(username);
+}
+
+export async function updateUser(updateUserRequest: UpdateUserRequest, username: string): Promise<void> {
+  logger.info('Updating a user', { username: username });
+  return userAccess.updateUser(updateUserRequest, username);
 }
 
 export function prepareUsername(username: string): string {

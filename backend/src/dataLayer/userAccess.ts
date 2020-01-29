@@ -2,6 +2,7 @@ import * as AWS from 'aws-sdk';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 import { createLogger } from '../utils/logger';
 import { User } from '../models/User';
+import { UpdateUserRequest } from '../requests/UpdateUserRequest';
 
 const logger = createLogger('userAccess');
 
@@ -32,6 +33,22 @@ export class UserAccess {
       })
       .promise();
     return result.Item as User;
+  }
+
+  async updateUser(updateUserRequest: UpdateUserRequest, username: string): Promise<void> {
+    logger.info('Updating user', { username: username });
+    await this.docClient
+      .update({
+        TableName: this.usersTable,
+        Key: {
+          username: username
+        },
+        UpdateExpression: 'set password = :password',
+        ExpressionAttributeValues: {
+          ':password': updateUserRequest.newPassword
+        }
+      })
+      .promise();
   }
 
   private createDynamoDBClient(): DocumentClient {

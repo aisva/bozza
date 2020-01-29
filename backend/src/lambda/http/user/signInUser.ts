@@ -13,21 +13,22 @@ import { createLogger } from '../../../utils/logger';
 import { generateToken } from '../../../utils/authentication';
 import { generateErrorResponse } from '../../../utils/response';
 import { comparePasswords } from '../../../utils/encryption';
+import { SignInUserRequest } from '../../../requests/SignInUserRequest';
 
 const logger = createLogger('signInUser');
 
 export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     logger.info('Processing event', event);
-    const body = JSON.parse(event.body);
-    const username = prepareUsername(body.username);
-    const password = preparePassword(body.password);
+    const signInUserRequest: SignInUserRequest = JSON.parse(event.body);
+    const username = prepareUsername(signInUserRequest.username);
+    const password = preparePassword(signInUserRequest.password);
     if (!isValidUsername(username)) {
-      logger.error('Invalid username', { username: body.username });
+      logger.error('Invalid username', { username: username });
       return generateErrorResponse(400, 'Invalid username');
     }
     if (!isValidPassword(password)) {
-      logger.error('Invalid password', { username: body.username });
+      logger.error('Invalid password', { username: username });
       return generateErrorResponse(400, 'Invalid password');
     }
     const user = await getUser(username);
