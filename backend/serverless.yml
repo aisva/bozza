@@ -22,6 +22,7 @@ provider:
     USERS_TABLE: Users-${self:provider.stage}
     # TODO: move to PPM manager
     TOKEN_SECRET: token-secret
+    TOKEN_EXPIRATION_TIME: 7d
 
 custom:
   serverless-offline:
@@ -50,6 +51,9 @@ custom:
         schema: ${file(models/sign-in-user-request.json)}
 
 functions:
+
+  Auth:
+    handler: src/lambda/auth/authorizer.handler
 
   CreateUser:
     handler: src/lambda/http/user/createUser.handler
