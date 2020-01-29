@@ -1,0 +1,125 @@
+service:
+  name: the-real-thought-app
+
+plugins:
+  - serverless-webpack
+  - serverless-iam-roles-per-function
+  - serverless-offline
+  - serverless-dynamodb-local
+  - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+
+  environment:
+    VERSION: v1
+    USERS_PATH: users
+    USERS_TABLE: Users-${self:provider.stage}
+    # TODO: move to PPM manager
+    TOKEN_SECRET: token-secret
+
+custom:
+  serverless-offline:
+    port: 3003
+
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    stages:
+      - dev
+
+  documentation:
+    api:
+      info:
+        version: v1.0.0
+        title: The Real Thought
+        description: The Real Thought app
+    models:
+      - name: CreateUserRequest
+        contentType: application/json
+        schema: ${file(models/create-user-request.json)}
+      - name: SignInUserRequest
+        contentType: application/json
+        schema: ${file(models/sign-in-user-request.json)}
+
+functions:
+
+  CreateUser:
+    handler: src/lambda/http/user/createUser.handler
+    events:
+      - http:
+          method: post
+          path: ${self:provider.environment.VERSION}/${self:provider.environment.USERS_PATH}
+          cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new user
+            description: Create a new user
+            requestModels:
+              'application/json': CreateUserRequest
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+          - dynamodb:GetItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+
+  SignInUser:
+    handler: src/lambda/http/user/signInUser.handler
+    events:
+      - http:
+          method: post
+          path: ${self:provider.environment.VERSION}/${self:provider.environment.USERS_PATH}/signin
+          cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Sign a user in
+            description: Sign a user in
+            requestModels:
+              'application/json': SignInUserRequest
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: ApiGatewayRestApi
+
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: username
+            AttributeType: S
+        KeySchema:
+          - AttributeName: username
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.USERS_TABLE}
+
+    RequestBodyValidator:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: 'request-body-validator'
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false
