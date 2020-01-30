@@ -43,9 +43,10 @@ export class UserAccess {
         Key: {
           username: username
         },
-        UpdateExpression: 'set password = :password',
+        UpdateExpression: 'set password = :password, updatedAt = :updatedAt',
         ExpressionAttributeValues: {
-          ':password': updateUserRequest.newPassword
+          ':password': updateUserRequest.newPassword,
+          ':updatedAt': new Date().toISOString()
         }
       })
       .promise();

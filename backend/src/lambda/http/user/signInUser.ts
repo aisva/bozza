@@ -43,7 +43,7 @@ export const handler = middy(
         return generateErrorResponse(401, 'Unauthorized user');
       }
       return {
-        statusCode: 201,
+        statusCode: 200,
         body: JSON.stringify({
           token: generateToken(user)
         })
