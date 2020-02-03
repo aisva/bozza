@@ -1,10 +1,10 @@
 import * as uuid from 'uuid';
-import { createLogger } from '../utils/logger';
-import { User } from '../models/User';
-import { UserAccess } from '../dataLayer/userAccess';
-import { CreateUserRequest } from '../requests/CreateUserRequest';
-import { generatePassword } from '../utils/encryption';
-import { UpdateUserRequest } from '../requests/UpdateUserRequest';
+import { createLogger } from '../../utils/logger';
+import { User } from '../../models/User';
+import { UserAccess } from '../../dataLayer/userAccess';
+import { CreateUserRequest } from '../../requests/CreateUserRequest';
+import { generatePassword } from '../../utils/encryption';
+import { UpdateUserRequest } from '../../requests/UpdateUserRequest';
 
 const logger = createLogger('userBusinessLogic');
 const userAccess = new UserAccess();

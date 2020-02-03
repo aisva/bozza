@@ -8,7 +8,7 @@ import {
   preparePassword,
   isValidPassword,
   getUser
-} from '../../../businessLogic/user';
+} from '../../../businessLogic/user/user';
 import { createLogger } from '../../../utils/logger';
 import { generateToken } from '../../../utils/authentication';
 import { generateErrorResponse } from '../../../utils/response';

@@ -2,7 +2,7 @@ import 'source-map-support/register';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import * as middy from 'middy';
 import { cors } from 'middy/middlewares';
-import { preparePassword, isValidPassword, getUser, updateUser } from '../../../businessLogic/user';
+import { preparePassword, isValidPassword, getUser, updateUser } from '../../../businessLogic/user/user';
 import { createLogger } from '../../../utils/logger';
 import { getUsername } from '../../../utils/authentication';
 import { generateErrorResponse } from '../../../utils/response';
