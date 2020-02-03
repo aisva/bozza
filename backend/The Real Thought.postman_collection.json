@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "d2e61f65-fdc0-4086-8cdc-ffbe3cc888bb",
+		"name": "The Real Thought",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ab8e819-8430-4e0c-b22e-ecaced54b6c7",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response body contains token\", function () {",
+									"   pm.expect(pm.response.text()).to.include(\"token\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"usertest\",\n\t\"password\": \"password.1\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/users",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign in user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2d5314ca-151e-4360-bfd8-fb7d66411058",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response body contains token\", function () {",
+									"   pm.expect(pm.response.text()).to.include(\"token\");",
+									"});",
+									"",
+									"var jsonResponse = JSON.parse(pm.response.text());",
+									"pm.collectionVariables.set(\"authToken\", jsonResponse.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"usertest\",\n\t\"password\": \"password.1\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/users/signin",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a04d5962-bca6-410a-b31d-f9065cdc77c3",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"currentPassword\": \"password.1\",\n\t\"newPassword\": \"password.2\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/users",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ce2b42d4-8cc5-4f30-a6ed-e7f0f303c3fd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "efb16c49-3866-4241-97d1-360ad72736d8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2e83c0fe-6650-44d5-a90f-4c27ff720d83",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "977c227e-2df3-42eb-9a48-ec25e2f7eeae",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e9fbc623-ebaf-4d9e-9124-c40b4f0e8920",
+			"key": "apiUrl",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "f7081bcc-a0df-41ae-9084-24768304cb03",
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "a61db791-dd83-4849-aed5-a73e39d3eb1b",
+			"key": "version",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
