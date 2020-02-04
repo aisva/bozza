@@ -51,5 +51,9 @@
     "webpack": "^4.29.6"
   },
   "author": "Antonio Isasi",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aisva/the-real-thought/tree/master/backend"
+  }
 }
