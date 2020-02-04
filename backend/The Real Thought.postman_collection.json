@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d2e61f65-fdc0-4086-8cdc-ffbe3cc888bb",
+		"_postman_id": "24f42afd-2d71-44d5-a648-423ac5d00dca",
 		"name": "The Real Thought",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -158,6 +158,49 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9cc8f5e1-aaa1-431b-9c30-563954ca91ef",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/users",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"users"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -209,19 +252,19 @@
 	],
 	"variable": [
 		{
-			"id": "e9fbc623-ebaf-4d9e-9124-c40b4f0e8920",
+			"id": "817a3838-4c65-41e1-8eea-d50e651ee1e1",
 			"key": "apiUrl",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "f7081bcc-a0df-41ae-9084-24768304cb03",
+			"id": "5a4de68e-23d7-4c80-83d0-cf0df878320d",
 			"key": "authToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a61db791-dd83-4849-aed5-a73e39d3eb1b",
+			"id": "615f160b-fbb3-4e26-a288-1ac490c2c8fe",
 			"key": "version",
 			"value": "",
 			"type": "string"

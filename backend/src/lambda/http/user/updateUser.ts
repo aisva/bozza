@@ -23,6 +23,10 @@ export const handler = middy(
     }
     try {
       const user = await getUser(username);
+      if (user == null) {
+        logger.error('User does not exist', { username: username });
+        return generateErrorResponse(400, 'User does not exist');
+      }
       const matchingPasswords = await comparePasswords(currentPassword, user.password);
       if (!matchingPasswords) {
         logger.error('Current password is not valid', { username: username });

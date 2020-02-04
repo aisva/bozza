@@ -52,6 +52,18 @@ export class UserAccess {
       .promise();
   }
 
+  async deleteUser(username: string): Promise<void> {
+    logger.info('Deleting user', { username: username });
+    await this.docClient
+      .delete({
+        TableName: this.usersTable,
+        Key: {
+          username: username
+        }
+      })
+      .promise();
+  }
+
   private createDynamoDBClient(): DocumentClient {
     if (process.env.IS_OFFLINE) {
       logger.info('Creating a local DynamoDB instance');

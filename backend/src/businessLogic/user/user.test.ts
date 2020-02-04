@@ -1,5 +1,5 @@
 import { UserAccess } from '../../dataLayer/userAccess';
-import { getUser, createUser, updateUser } from './user';
+import { getUser, createUser, updateUser, deleteUser } from './user';
 import { CreateUserRequest } from '../../requests/CreateUserRequest';
 import { generatePassword } from '../../utils/encryption';
 import { UpdateUserRequest } from '../../requests/UpdateUserRequest';
@@ -63,5 +63,19 @@ describe('User business logic - updateUser()', () => {
     await updateUser({ currentPassword: 'currentPassword', newPassword: newPassword }, 'username');
     expect(generatePassword).toBeCalled();
     expect(generatePassword).toHaveBeenCalledWith(newPassword);
+  });
+});
+
+describe('User business logic - deleteUser()', () => {
+  test('deleteUser() accesses the data layer once', async () => {
+    expect(UserAccess.prototype.deleteUser).not.toHaveBeenCalled();
+    await deleteUser('username');
+    expect(UserAccess.prototype.deleteUser).toHaveBeenCalledTimes(1);
+  });
+
+  test('deleteUser() passes proper parameters to the data layer', async () => {
+    const username = 'username';
+    await deleteUser(username);
+    expect(UserAccess.prototype.deleteUser).toHaveBeenCalledWith(username);
   });
 });

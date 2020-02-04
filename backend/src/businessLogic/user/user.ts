@@ -32,7 +32,12 @@ export async function updateUser(updateUserRequest: UpdateUserRequest, username:
   logger.info('Updating a user', { username: username });
   const password = await generatePassword(updateUserRequest.newPassword);
   updateUserRequest.newPassword = password;
-  return userAccess.updateUser(updateUserRequest, username);
+  userAccess.updateUser(updateUserRequest, username);
+}
+
+export async function deleteUser(username: string): Promise<void> {
+  logger.info('Deleting a user', { username: username });
+  userAccess.deleteUser(username);
 }
 
 export function prepareUsername(username: string): string {

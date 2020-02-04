@@ -46,7 +46,7 @@
     "serverless-s3-local": "^0.5.4",
     "serverless-webpack": "^5.2.0",
     "ts-jest": "^25.1.0",
-    "ts-loader": "^5.3.3",
+    "ts-loader": "^6.2.1",
     "typescript": "^3.4.1",
     "webpack": "^4.29.6"
   },
