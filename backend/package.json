@@ -4,7 +4,9 @@
   "description": "The Real Thought",
   "scripts": {
     "lint": "npx eslint **/*.ts --fix",
-    "test": "jest"
+    "test": "jest",
+    "offline": "npm run lint && npm run test && sls offline",
+    "db": "sls dynamodb install && sls dynamodb start"
   },
   "jest": {
     "preset": "ts-jest"
