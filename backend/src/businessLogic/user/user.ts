@@ -9,6 +9,7 @@ import { UpdateUserRequest } from '../../requests/UpdateUserRequest';
 const logger = createLogger('userBusinessLogic');
 const userAccess = new UserAccess();
 const usernameLength = { max: 15, min: 3 };
+const usernamePattern = /^[a-z0-9]+$/i;
 const passwordLength = { max: 15, min: 8 };
 
 export async function createUser(createUserRequest: CreateUserRequest): Promise<User> {
@@ -45,7 +46,9 @@ export function prepareUsername(username: string): string {
 }
 
 export function isValidUsername(username: string): boolean {
-  return username.length > usernameLength.max || username.length < usernameLength.min ? false : true;
+  return username.length > usernameLength.max || username.length < usernameLength.min || !usernamePattern.test(username)
+    ? false
+    : true;
 }
 
 export function preparePassword(password: string): string {
