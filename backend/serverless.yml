@@ -1,5 +1,5 @@
 service:
-  name: the-real-thought-app
+  name: bozza-app
 
 plugins:
   - serverless-webpack
@@ -39,8 +39,8 @@ custom:
     api:
       info:
         version: v1.0.0
-        title: The Real Thought
-        description: The Real Thought app
+        title: Bozza
+        description: Bozza app
     models:
       - name: CreateUserRequest
         contentType: application/json

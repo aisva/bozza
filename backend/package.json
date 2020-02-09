@@ -1,7 +1,7 @@
 {
-  "name": "the-real-thought-app",
+  "name": "bozza-app",
   "version": "1.0.0",
-  "description": "The Real Thought",
+  "description": "Bozza app",
   "scripts": {
     "lint": "npx eslint **/*.ts --fix",
     "test": "jest",

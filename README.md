@@ -1,1 +1,1 @@
-# The Real Thought application
+# Bozza app
