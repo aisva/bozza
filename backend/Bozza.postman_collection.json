@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "24f42afd-2d71-44d5-a648-423ac5d00dca",
+		"_postman_id": "ed9b6205-59b2-438f-8c00-a71760566df5",
 		"name": "Bozza",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -104,6 +104,53 @@
 								"{{version}}",
 								"users",
 								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f512774d-5219-47fa-bfb3-2d5b43244763",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response body contains user\", function () {",
+									"   pm.expect(pm.response.text()).to.include(\"user\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/users",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"users"
 							]
 						}
 					},
