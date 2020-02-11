@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ed9b6205-59b2-438f-8c00-a71760566df5",
+		"_postman_id": "012e33d8-76b8-4876-bdc3-7c9c296784de",
 		"name": "Bozza",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -273,6 +273,126 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Create item (draft)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "68a59f32-20e3-4e2a-9da1-79da91bc6cd4",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response body contains item\", function () {",
+									"   pm.expect(pm.response.text()).to.include(\"item\");",
+									"});",
+									"",
+									"pm.test(\"Response body contains text\", function () {",
+									"   pm.expect(pm.response.text()).to.include(\"text\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/items",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create item (task)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e5f71c35-c925-4f82-9395-0a6e09f21714",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response body contains item\", function () {",
+									"   pm.expect(pm.response.text()).to.include(\"item\");",
+									"});",
+									"",
+									"pm.test(\"Response body contains text\", function () {",
+									"   pm.expect(pm.response.text()).to.include(\"text\");",
+									"});",
+									"",
+									"pm.test(\"Response body contains dueDate\", function () {",
+									"   pm.expect(pm.response.text()).to.include(\"dueDate\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.\",\n\t\"dueDate\": \"2020-02-11T16:31:06.158Z\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/items",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"items"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
@@ -299,19 +419,19 @@
 	],
 	"variable": [
 		{
-			"id": "817a3838-4c65-41e1-8eea-d50e651ee1e1",
+			"id": "55bbe0f2-d692-41bd-82cf-b0012d91e483",
 			"key": "apiUrl",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5a4de68e-23d7-4c80-83d0-cf0df878320d",
+			"id": "ae7ffcd7-6da0-482d-9824-40896ee05a8a",
 			"key": "authToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "615f160b-fbb3-4e26-a288-1ac490c2c8fe",
+			"id": "c980b101-c19f-4eb8-bf15-5d8bcf0a8240",
 			"key": "version",
 			"value": "",
 			"type": "string"
