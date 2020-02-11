@@ -66,20 +66,6 @@ functions:
     handler: src/lambda/auth/authorizer.handler
 
   # Users
-  GetUser:
-    handler: src/lambda/http/user/getUser.handler
-    events:
-      - http:
-          method: get
-          path: ${self:provider.environment.VERSION}/${self:provider.environment.USERS_PATH}
-          cors: true
-          authorizer: Auth
-    iamRoleStatements:
-      - Effect: Allow
-        Action:
-          - dynamodb:GetItem
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
-
   CreateUser:
     handler: src/lambda/http/user/createUser.handler
     events:
