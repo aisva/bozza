@@ -142,6 +142,28 @@ functions:
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
 
   # Items
+  GetItems:
+    handler: src/lambda/http/item/getItems.handler
+    events:
+      - http:
+          method: get
+          path: ${self:provider.environment.VERSION}/${self:provider.environment.ITEMS_PATH}
+          cors: true
+          authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}/index/${self:provider.environment.ITEMS_UPDATED_AT_INDEX}
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}/index/${self:provider.environment.ITEMS_DUE_DATE_INDEX}
+
   CreateItem:
     handler: src/lambda/http/item/createItem.handler
     events:
@@ -149,6 +171,7 @@ functions:
           method: post
           path: ${self:provider.environment.VERSION}/${self:provider.environment.ITEMS_PATH}
           cors: true
+          authorizer: Auth
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new item

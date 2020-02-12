@@ -1,5 +1,5 @@
 import { ItemAccess } from '../../dataLayer/itemAccess';
-import { createItem } from './item';
+import { createItem, getItems, getFilter } from './item';
 import { CreateItemRequest } from '../../requests/CreateItemRequest';
 
 jest.mock('../../dataLayer/itemAccess');
@@ -18,5 +18,20 @@ describe('Item business logic - createItem()', () => {
     expect(ItemAccess.prototype.createItem).toHaveBeenCalledWith(
       expect.objectContaining({ userId: userId, text: createItemRequest.text, dueDate: createItemRequest.dueDate })
     );
+  });
+});
+
+describe('Item business logic - getItems()', () => {
+  test('getItems() accesses the data layer once', async () => {
+    expect(ItemAccess.prototype.getItems).not.toHaveBeenCalled();
+    await getItems('task', 'userId');
+    expect(ItemAccess.prototype.getItems).toHaveBeenCalledTimes(1);
+  });
+
+  test('getItems() passes proper parameters to the data layer', async () => {
+    const filter = 'task';
+    const userId = 'userId';
+    await getItems(filter, userId);
+    expect(ItemAccess.prototype.getItems).toHaveBeenCalledWith(getFilter(filter), userId);
   });
 });

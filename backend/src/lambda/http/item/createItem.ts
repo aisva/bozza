@@ -16,7 +16,7 @@ export const handler = middy(
     const createItemRequest: CreateItemRequest = prepareCreateItemRequest(JSON.parse(event.body));
     logger.info('Processing request', { createItemRequest: createItemRequest });
     if (createItemRequest.dueDate != null && !isValidDueDate(createItemRequest.dueDate)) {
-      logger.error('Invalid due date', { createItemRequest: createItemRequest });
+      logger.error('Invalid due date', { dueDate: createItemRequest.dueDate });
       return generateErrorResponse(400, 'Invalid due date');
     }
     try {

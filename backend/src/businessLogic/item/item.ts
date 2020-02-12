@@ -1,11 +1,20 @@
 import * as uuid from 'uuid';
 import { createLogger } from '../../utils/logger';
 import { CreateItemRequest } from '../../requests/CreateItemRequest';
-import { Item } from '../../models/Item';
+import { Item, Filter } from '../../models/Item';
 import { ItemAccess } from '../../dataLayer/itemAccess';
 
 const logger = createLogger('itemBusinessLogic');
 const itemAccess = new ItemAccess();
+
+export function getFilter(filter: string): Filter {
+  return filter === Filter.Task.valueOf() ? Filter.Task : null;
+}
+
+export async function getItems(filter: string, userId: string): Promise<Item[]> {
+  logger.info('Getting items', { filter: filter });
+  return itemAccess.getItems(getFilter(filter), userId);
+}
 
 export async function createItem(createItemRequest: CreateItemRequest, userId: string): Promise<Item> {
   const item: Item = {
@@ -28,4 +37,8 @@ export function prepareCreateItemRequest(createItemRequest: CreateItemRequest): 
 
 export function isValidDueDate(dueDate: string): boolean {
   return !isNaN(Date.parse(dueDate));
+}
+
+export function isValidFilter(filter: string): boolean {
+  return getFilter(filter) != null;
 }
