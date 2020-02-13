@@ -1,6 +1,7 @@
 import { ItemAccess } from '../../dataLayer/itemAccess';
-import { createItem, getItems, getFilter } from './item';
+import { createItem, getItems, getFilter, getItem, updateItem } from './item';
 import { CreateItemRequest } from '../../requests/CreateItemRequest';
+import { UpdateItemRequest } from '../../requests/UpdateItemRequest';
 
 jest.mock('../../dataLayer/itemAccess');
 
@@ -33,5 +34,36 @@ describe('Item business logic - getItems()', () => {
     const userId = 'userId';
     await getItems(filter, userId);
     expect(ItemAccess.prototype.getItems).toHaveBeenCalledWith(getFilter(filter), userId);
+  });
+});
+
+describe('Item business logic - getItem()', () => {
+  test('getItem() accesses the data layer once', async () => {
+    expect(ItemAccess.prototype.getItem).not.toHaveBeenCalled();
+    await getItem('itemId', 'userId');
+    expect(ItemAccess.prototype.getItem).toHaveBeenCalledTimes(1);
+  });
+
+  test('getItem() passes proper parameters to the data layer', async () => {
+    const itemId = 'itemId';
+    const userId = 'userId';
+    await getItem(itemId, userId);
+    expect(ItemAccess.prototype.getItem).toHaveBeenCalledWith(itemId, userId);
+  });
+});
+
+describe('Item business logic - updateItem()', () => {
+  test('updateItem() accesses the data layer once', async () => {
+    expect(ItemAccess.prototype.updateItem).not.toHaveBeenCalled();
+    await updateItem({ text: 'text', dueDate: new Date().toISOString() }, 'itemId', 'userId');
+    expect(ItemAccess.prototype.updateItem).toHaveBeenCalledTimes(1);
+  });
+
+  test('updateItem() passes proper parameters to the data layer', async () => {
+    const updateItemRequest: UpdateItemRequest = { text: 'text', dueDate: new Date().toISOString() };
+    const itemId = 'itemId';
+    const userId = 'userId';
+    await updateItem(updateItemRequest, itemId, userId);
+    expect(ItemAccess.prototype.updateItem).toHaveBeenCalledWith(updateItemRequest, itemId, userId);
   });
 });

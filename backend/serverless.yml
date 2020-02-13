@@ -58,6 +58,9 @@ custom:
       - name: CreateItemRequest
         contentType: application/json
         schema: ${file(models/create-item-request.json)}
+      - name: UpdateItemRequest
+        contentType: application/json
+        schema: ${file(models/update-item-request.json)}
 
 functions:
 
@@ -182,6 +185,27 @@ functions:
       - Effect: Allow
         Action:
           - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
+
+  UpdateItem:
+    handler: src/lambda/http/item/updateItem.handler
+    events:
+      - http:
+          method: patch
+          path: ${self:provider.environment.VERSION}/${self:provider.environment.ITEMS_PATH}/{itemId}
+          cors: true
+          authorizer: Auth
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Update an item
+            description: Update an item
+            requestModels:
+              'application/json': UpdateItemRequest
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+          - dynamodb:GetItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ITEMS_TABLE}
 
 resources:

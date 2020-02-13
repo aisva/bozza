@@ -3,6 +3,7 @@ import { createLogger } from '../../utils/logger';
 import { CreateItemRequest } from '../../requests/CreateItemRequest';
 import { Item, Filter } from '../../models/Item';
 import { ItemAccess } from '../../dataLayer/itemAccess';
+import { UpdateItemRequest } from '../../requests/UpdateItemRequest';
 
 const logger = createLogger('itemBusinessLogic');
 const itemAccess = new ItemAccess();
@@ -12,8 +13,12 @@ export function getFilter(filter: string): Filter {
 }
 
 export async function getItems(filter: string, userId: string): Promise<Item[]> {
-  logger.info('Getting items', { filter: filter });
+  logger.info('Getting items', { filter: filter, userId: userId });
   return itemAccess.getItems(getFilter(filter), userId);
+}
+
+export async function getItem(itemId: string, userId: string): Promise<Item> {
+  return itemAccess.getItem(itemId, userId);
 }
 
 export async function createItem(createItemRequest: CreateItemRequest, userId: string): Promise<Item> {
@@ -29,10 +34,19 @@ export async function createItem(createItemRequest: CreateItemRequest, userId: s
   return await itemAccess.createItem(item);
 }
 
+export async function updateItem(updateItemRequest: UpdateItemRequest, itemId: string, userId: string): Promise<void> {
+  logger.info('Updating an item', { itemId: itemId });
+  itemAccess.updateItem(updateItemRequest, itemId, userId);
+}
+
 export function prepareCreateItemRequest(createItemRequest: CreateItemRequest): CreateItemRequest {
   const request: CreateItemRequest = { text: createItemRequest.text.trim() };
   if (createItemRequest.dueDate != null) request.dueDate = createItemRequest.dueDate.trim();
   return request;
+}
+
+export function prepareUpdateItemRequest(updateItemRequest: UpdateItemRequest): UpdateItemRequest {
+  return prepareCreateItemRequest(updateItemRequest);
 }
 
 export function isValidDueDate(dueDate: string): boolean {

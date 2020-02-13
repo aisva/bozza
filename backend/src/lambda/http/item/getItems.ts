@@ -12,13 +12,14 @@ const logger = createLogger('getItems');
 export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const filter = event.queryStringParameters != null ? event.queryStringParameters.filter : null;
-    logger.info('Processing request', { filter: filter });
+    const userId = getUserId(event);
+    logger.info('Processing request', { filter: filter, userId: userId });
     if (filter != null && !isValidFilter(filter)) {
       logger.error('Invalid filter', { filter: filter });
       return generateErrorResponse(400, 'Invalid filter');
     }
     try {
-      const items = await getItems(filter, getUserId(event));
+      const items = await getItems(filter, userId);
       return {
         statusCode: 200,
         body: JSON.stringify({

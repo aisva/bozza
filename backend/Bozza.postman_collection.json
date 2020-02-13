@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f597be0d-5dff-4785-9114-1590d4594432",
+		"_postman_id": "515b3ad3-27ae-4996-8c2f-864997d8ed1a",
 		"name": "Bozza",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -248,7 +248,10 @@
 									"",
 									"pm.test(\"Response body contains text\", function () {",
 									"   pm.expect(pm.response.text()).to.include(\"text\");",
-									"});"
+									"});",
+									"",
+									"var jsonResponse = JSON.parse(pm.response.text());",
+									"pm.collectionVariables.set(\"itemId\", jsonResponse.item.itemId);"
 								],
 								"type": "text/javascript"
 							}
@@ -462,6 +465,150 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update item (only text)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a4ff8df-5dd5-48d6-820c-dd471afced50",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"Quis aute iure reprehenderit in voluptate velit esse cillum\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/items/{{itemId}}",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"items",
+								"{{itemId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update item (text and dueDate)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "614addfe-d1e2-4d40-86f3-439819094d2e",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"Quis aute iure reprehenderit in voluptate velit esse cillum\",\n\t\"dueDate\": \"2020-02-11T16:31:06.158Z\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/items/{{itemId}}",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"items",
+								"{{itemId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update item (remove dueDate)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6a9313b3-c7f0-462a-bf79-e1e248dfe344",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"Quis aute iure reprehenderit in voluptate velit esse cillum\",\n\t\"dueDate\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/items/{{itemId}}",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"items",
+								"{{itemId}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -491,20 +638,26 @@
 	],
 	"variable": [
 		{
-			"id": "55bbe0f2-d692-41bd-82cf-b0012d91e483",
+			"id": "2f3d7953-d62d-4241-8a62-a114d56236b2",
 			"key": "apiUrl",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ae7ffcd7-6da0-482d-9824-40896ee05a8a",
+			"id": "506c62ff-b385-4c2d-89f4-ac6ddce271be",
+			"key": "version",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "f225a664-dd5e-4021-93e2-4f0778b89d5a",
 			"key": "authToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c980b101-c19f-4eb8-bf15-5d8bcf0a8240",
-			"key": "version",
+			"id": "aac65c1f-8b73-456f-a943-f153fc27a8db",
+			"key": "itemId",
 			"value": "",
 			"type": "string"
 		}
