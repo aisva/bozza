@@ -8,19 +8,6 @@ import { UpdateItemRequest } from '../../requests/UpdateItemRequest';
 const logger = createLogger('itemBusinessLogic');
 const itemAccess = new ItemAccess();
 
-export function getFilter(filter: string): Filter {
-  return filter === Filter.Task.valueOf() ? Filter.Task : null;
-}
-
-export async function getItems(filter: string, userId: string): Promise<Item[]> {
-  logger.info('Getting items', { filter: filter, userId: userId });
-  return itemAccess.getItems(getFilter(filter), userId);
-}
-
-export async function getItem(itemId: string, userId: string): Promise<Item> {
-  return itemAccess.getItem(itemId, userId);
-}
-
 export async function createItem(createItemRequest: CreateItemRequest, userId: string): Promise<Item> {
   const item: Item = {
     itemId: uuid.v4(),
@@ -34,9 +21,27 @@ export async function createItem(createItemRequest: CreateItemRequest, userId: s
   return await itemAccess.createItem(item);
 }
 
+export function getFilter(filter: string): Filter {
+  return filter === Filter.Task.valueOf() ? Filter.Task : null;
+}
+
+export async function getItems(filter: string, userId: string): Promise<Item[]> {
+  logger.info('Getting items', { filter: filter, userId: userId });
+  return itemAccess.getItems(getFilter(filter), userId);
+}
+
+export async function getItem(itemId: string, userId: string): Promise<Item> {
+  return itemAccess.getItem(itemId, userId);
+}
+
 export async function updateItem(updateItemRequest: UpdateItemRequest, itemId: string, userId: string): Promise<void> {
   logger.info('Updating an item', { itemId: itemId });
   itemAccess.updateItem(updateItemRequest, itemId, userId);
+}
+
+export async function deleteItem(itemId: string, userId: string): Promise<void> {
+  logger.info('Deleting an item', { itemId: itemId });
+  itemAccess.deleteItem(itemId, userId);
 }
 
 export function prepareCreateItemRequest(createItemRequest: CreateItemRequest): CreateItemRequest {

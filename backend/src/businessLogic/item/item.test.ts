@@ -1,5 +1,5 @@
 import { ItemAccess } from '../../dataLayer/itemAccess';
-import { createItem, getItems, getFilter, getItem, updateItem } from './item';
+import { createItem, getItems, getFilter, getItem, updateItem, deleteItem } from './item';
 import { CreateItemRequest } from '../../requests/CreateItemRequest';
 import { UpdateItemRequest } from '../../requests/UpdateItemRequest';
 
@@ -65,5 +65,20 @@ describe('Item business logic - updateItem()', () => {
     const userId = 'userId';
     await updateItem(updateItemRequest, itemId, userId);
     expect(ItemAccess.prototype.updateItem).toHaveBeenCalledWith(updateItemRequest, itemId, userId);
+  });
+});
+
+describe('Item business logic - deleteItem()', () => {
+  test('deleteItem() accesses the data layer once', async () => {
+    expect(ItemAccess.prototype.deleteItem).not.toHaveBeenCalled();
+    await deleteItem('itemId', 'userId');
+    expect(ItemAccess.prototype.deleteItem).toHaveBeenCalledTimes(1);
+  });
+
+  test('deleteItem() passes proper parameters to the data layer', async () => {
+    const itemId = 'itemId';
+    const userId = 'userId';
+    await deleteItem(itemId, userId);
+    expect(ItemAccess.prototype.deleteItem).toHaveBeenCalledWith(itemId, userId);
   });
 });

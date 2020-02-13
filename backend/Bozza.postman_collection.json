@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "515b3ad3-27ae-4996-8c2f-864997d8ed1a",
+		"_postman_id": "f554a4b9-0fa4-4915-aa44-d6653a4a8ab0",
 		"name": "Bozza",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -386,7 +386,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{apiUrl}}/{{version}}/items?",
+							"raw": "{{apiUrl}}/{{version}}/items",
 							"host": [
 								"{{apiUrl}}"
 							],
@@ -596,6 +596,50 @@
 							"mode": "raw",
 							"raw": "{\n\t\"text\": \"Quis aute iure reprehenderit in voluptate velit esse cillum\",\n\t\"dueDate\": \"\"\n}"
 						},
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/items/{{itemId}}",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"items",
+								"{{itemId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5f224d08-8dbb-4094-9dc6-f2902768da2d",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{apiUrl}}/{{version}}/items/{{itemId}}",
 							"host": [

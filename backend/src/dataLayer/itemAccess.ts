@@ -15,6 +15,17 @@ export class ItemAccess {
     private readonly dueDateIndex: string = process.env.ITEMS_DUE_DATE_INDEX
   ) {}
 
+  async createItem(item: Item): Promise<Item> {
+    logger.info('Creating an item', { itemId: item.itemId });
+    await this.docClient
+      .put({
+        TableName: this.itemsTable,
+        Item: item
+      })
+      .promise();
+    return item;
+  }
+
   async getItems(filter: Filter, userId: string): Promise<Item[]> {
     logger.info('Getting items', { filter: filter != null ? filter.valueOf() : null, userId: userId });
     const result = await this.docClient
@@ -45,17 +56,6 @@ export class ItemAccess {
     return result.Item as Item;
   }
 
-  async createItem(item: Item): Promise<Item> {
-    logger.info('Creating an item', { itemId: item.itemId });
-    await this.docClient
-      .put({
-        TableName: this.itemsTable,
-        Item: item
-      })
-      .promise();
-    return item;
-  }
-
   async updateItem(updateItemRequest: UpdateItemRequest, itemId: string, userId: string): Promise<void> {
     logger.info('Updating an item', { itemId: itemId });
     const updateExpression = this.getUpdateExpression(updateItemRequest);
@@ -70,6 +70,19 @@ export class ItemAccess {
         ExpressionAttributeValues: updateExpression.values,
         ExpressionAttributeNames: {
           '#text': 'text'
+        }
+      })
+      .promise();
+  }
+
+  async deleteItem(itemId: string, userId: string): Promise<void> {
+    logger.info('Deleting an item', { itemId: itemId });
+    await this.docClient
+      .delete({
+        TableName: this.itemsTable,
+        Key: {
+          userId: userId,
+          itemId: itemId
         }
       })
       .promise();
