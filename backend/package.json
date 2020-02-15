@@ -12,11 +12,7 @@
     "preset": "ts-jest"
   },
   "dependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/http-errors": "^1.6.1",
-    "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
-    "http-errors": "^1.7.2",
     "jsonwebtoken": "^8.5.1",
     "middy": "^0.27.0",
     "source-map-support": "^0.5.11",
@@ -41,7 +37,6 @@
     "serverless-dynamodb-local": "^0.2.39",
     "serverless-iam-roles-per-function": "^1.0.4",
     "serverless-offline": "^5.12.1",
-    "serverless-plugin-canary-deployments": "^0.4.7",
     "serverless-reqvalidator-plugin": "^1.0.3",
     "serverless-s3-local": "^0.5.4",
     "serverless-webpack": "^5.2.0",
