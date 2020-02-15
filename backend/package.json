@@ -5,8 +5,8 @@
   "scripts": {
     "lint": "npx eslint **/*.ts --fix",
     "test": "jest",
-    "offline": "npm run lint && npm run test && sls offline",
-    "db": "sls dynamodb install && sls dynamodb start"
+    "offline": "npm run lint && npm run test && sls offline --secret $JWT_SECRET",
+    "db": "sls dynamodb install --secret $JWT_SECRET && sls dynamodb start --secret $JWT_SECRET"
   },
   "jest": {
     "preset": "ts-jest"

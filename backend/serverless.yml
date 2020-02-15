@@ -26,10 +26,10 @@ provider:
     ITEMS_UPDATED_AT_INDEX: updatedAtIndex
     ITEMS_DUE_DATE_INDEX: dueDateIndex
     ATTACHMENTS_S3_BUCKET: bozza-attachments-aisva-${self:provider.stage}
-    TOKEN_SECRET: token-secret
+    TOKEN_SECRET: ${opt:secret}
     TOKEN_EXPIRATION_TIME: 7d
     SIGNED_URL_EXPIRATION: 300
-
+    
 custom:
   serverless-offline:
     port: 3003
