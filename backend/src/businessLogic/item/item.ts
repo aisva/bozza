@@ -5,6 +5,7 @@ import { Item, Filter } from '../../models/Item';
 import { ItemAccess } from '../../dataLayer/itemAccess';
 import { UpdateItemRequest } from '../../requests/UpdateItemRequest';
 import { ItemStorage } from '../../storageLayer/itemStorage';
+import { GetItemsResponse } from '../../responses/GetItemsResponse';
 
 const logger = createLogger('itemBusinessLogic');
 const itemAccess = new ItemAccess();
@@ -27,9 +28,14 @@ export function getFilter(filter: string): Filter {
   return filter === Filter.Task.valueOf() ? Filter.Task : null;
 }
 
-export async function getItems(filter: string, userId: string): Promise<Item[]> {
+export async function getItems(
+  filter: string,
+  userId: string,
+  limit: number,
+  nextKey: string
+): Promise<GetItemsResponse> {
   logger.info('Getting items', { filter: filter, userId: userId });
-  return itemAccess.getItems(getFilter(filter), userId);
+  return itemAccess.getItems(getFilter(filter), userId, limit, nextKey);
 }
 
 export async function getItem(itemId: string, userId: string): Promise<Item> {
@@ -72,4 +78,10 @@ export function isValidDueDate(dueDate: string): boolean {
 
 export function isValidFilter(filter: string): boolean {
   return getFilter(filter) != null;
+}
+
+export function getLimit(parameter: string): number {
+  if (parameter == null) return null;
+  const limit = parseInt(parameter);
+  return isNaN(limit) ? null : limit;
 }

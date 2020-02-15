@@ -36,15 +36,17 @@ describe('Item business logic - createItem()', () => {
 describe('Item business logic - getItems()', () => {
   test('getItems() accesses the data layer once', async () => {
     expect(ItemAccess.prototype.getItems).not.toHaveBeenCalled();
-    await getItems('task', 'userId');
+    await getItems('task', 'userId', 3, 'nextKey');
     expect(ItemAccess.prototype.getItems).toHaveBeenCalledTimes(1);
   });
 
   test('getItems() passes proper parameters to the data layer', async () => {
     const filter = 'task';
     const userId = 'userId';
-    await getItems(filter, userId);
-    expect(ItemAccess.prototype.getItems).toHaveBeenCalledWith(getFilter(filter), userId);
+    const limit = 3;
+    const nextKey = 'nextKey';
+    await getItems(filter, userId, limit, nextKey);
+    expect(ItemAccess.prototype.getItems).toHaveBeenCalledWith(getFilter(filter), userId, limit, nextKey);
   });
 });
 

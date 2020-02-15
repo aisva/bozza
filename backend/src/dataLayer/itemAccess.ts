@@ -4,6 +4,7 @@ import { createDynamoDBClient } from '../utils/dataAccess';
 import { Item, Filter } from '../models/Item';
 import { UpdateItemRequest } from '../requests/UpdateItemRequest';
 import { getDownloadUrl } from '../utils/dataStorage';
+import { GetItemsResponse } from '../responses/GetItemsResponse';
 
 const logger = createLogger('itemAccess');
 
@@ -27,20 +28,24 @@ export class ItemAccess {
     return item;
   }
 
-  async getItems(filter: Filter, userId: string): Promise<Item[]> {
+  async getItems(filter: Filter, userId: string, limit: number, nextKey: string): Promise<GetItemsResponse> {
     logger.info('Getting items', { filter: filter != null ? filter.valueOf() : null, userId: userId });
     const result = await this.docClient
       .query({
         TableName: this.itemsTable,
         IndexName: filter === Filter.Task ? this.dueDateIndex : this.updatedAtIndex,
         KeyConditionExpression: 'userId = :userId',
+        Limit: limit,
+        ExclusiveStartKey: nextKey != null ? JSON.parse(decodeURIComponent(nextKey)) : null,
         ExpressionAttributeValues: {
           ':userId': userId
         },
         ScanIndexForward: false
       })
       .promise();
-    return result.Items as Item[];
+    const response: GetItemsResponse = { items: result.Items as Item[] };
+    if (result.LastEvaluatedKey != null) response.nextKey = encodeURIComponent(JSON.stringify(result.LastEvaluatedKey));
+    return response;
   }
 
   async getItem(itemId: string, userId: string): Promise<Item> {
