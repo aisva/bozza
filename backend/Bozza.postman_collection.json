@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f554a4b9-0fa4-4915-aa44-d6653a4a8ab0",
+		"_postman_id": "560dbefa-5d69-4d7f-a270-dcd163e2e47b",
 		"name": "Bozza",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -236,64 +236,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "68a59f32-20e3-4e2a-9da1-79da91bc6cd4",
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"",
-									"pm.test(\"Response body contains item\", function () {",
-									"   pm.expect(pm.response.text()).to.include(\"item\");",
-									"});",
-									"",
-									"pm.test(\"Response body contains text\", function () {",
-									"   pm.expect(pm.response.text()).to.include(\"text\");",
-									"});",
-									"",
-									"var jsonResponse = JSON.parse(pm.response.text());",
-									"pm.collectionVariables.set(\"itemId\", jsonResponse.item.itemId);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"text\": \"Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\"\n}"
-						},
-						"url": {
-							"raw": "{{apiUrl}}/{{version}}/items",
-							"host": [
-								"{{apiUrl}}"
-							],
-							"path": [
-								"{{version}}",
-								"items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create item (task)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
 								"id": "e5f71c35-c925-4f82-9395-0a6e09f21714",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
@@ -310,7 +252,10 @@
 									"",
 									"pm.test(\"Response body contains dueDate\", function () {",
 									"   pm.expect(pm.response.text()).to.include(\"dueDate\");",
-									"});"
+									"});",
+									"",
+									"var jsonResponse = JSON.parse(pm.response.text());",
+									"pm.collectionVariables.set(\"itemId\", jsonResponse.item.itemId);"
 								],
 								"type": "text/javascript"
 							}
@@ -321,13 +266,13 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{authToken}}",
-								"type": "text"
+								"type": "text",
+								"value": "Bearer {{authToken}}"
 							}
 						],
 						"body": {
@@ -386,7 +331,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{apiUrl}}/{{version}}/items",
+							"raw": "{{apiUrl}}/{{version}}/items?",
 							"host": [
 								"{{apiUrl}}"
 							],
@@ -605,6 +550,59 @@
 								"{{version}}",
 								"items",
 								"{{itemId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate attachment URLs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ca610c83-61ac-400d-8b23-3ffe3584ef5d",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response body contains uploadUrl\", function () {",
+									"   pm.expect(pm.response.text()).to.include(\"uploadUrl\");",
+									"});",
+									"",
+									"pm.test(\"Response body contains downloadUrl\", function () {",
+									"   pm.expect(pm.response.text()).to.include(\"downloadUrl\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiUrl}}/{{version}}/items/{{itemId}}/attachment",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"items",
+								"{{itemId}}",
+								"attachment"
 							]
 						}
 					},

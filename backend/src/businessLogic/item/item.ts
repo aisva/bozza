@@ -4,9 +4,11 @@ import { CreateItemRequest } from '../../requests/CreateItemRequest';
 import { Item, Filter } from '../../models/Item';
 import { ItemAccess } from '../../dataLayer/itemAccess';
 import { UpdateItemRequest } from '../../requests/UpdateItemRequest';
+import { ItemStorage } from '../../storageLayer/itemStorage';
 
 const logger = createLogger('itemBusinessLogic');
 const itemAccess = new ItemAccess();
+const itemStorage = new ItemStorage();
 
 export async function createItem(createItemRequest: CreateItemRequest, userId: string): Promise<Item> {
   const item: Item = {
@@ -39,9 +41,19 @@ export async function updateItem(updateItemRequest: UpdateItemRequest, itemId: s
   itemAccess.updateItem(updateItemRequest, itemId, userId);
 }
 
+export async function updateDownloadUrl(itemId: string, userId: string): Promise<void> {
+  logger.info('Updating download URL', { itemId: itemId });
+  itemAccess.updateDownloadUrl(itemId, userId);
+}
+
 export async function deleteItem(itemId: string, userId: string): Promise<void> {
   logger.info('Deleting an item', { itemId: itemId });
   itemAccess.deleteItem(itemId, userId);
+}
+
+export function getUploadUrl(itemId: string): string {
+  logger.info('Getting upload URL', { itemId: itemId });
+  return itemStorage.getUploadUrl(itemId);
 }
 
 export function prepareCreateItemRequest(createItemRequest: CreateItemRequest): CreateItemRequest {

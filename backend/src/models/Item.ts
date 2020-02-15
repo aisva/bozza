@@ -7,6 +7,7 @@ export interface Item {
   userId: string;
   text: string;
   dueDate?: string;
+  downloadUrl?: string;
   createdAt: string;
   updatedAt: string;
 }

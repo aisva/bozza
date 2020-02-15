@@ -3,6 +3,7 @@ import { createLogger } from '../utils/logger';
 import { createDynamoDBClient } from '../utils/dataAccess';
 import { Item, Filter } from '../models/Item';
 import { UpdateItemRequest } from '../requests/UpdateItemRequest';
+import { getDownloadUrl } from '../utils/dataStorage';
 
 const logger = createLogger('itemAccess');
 
@@ -70,6 +71,23 @@ export class ItemAccess {
         ExpressionAttributeValues: updateExpression.values,
         ExpressionAttributeNames: {
           '#text': 'text'
+        }
+      })
+      .promise();
+  }
+
+  async updateDownloadUrl(itemId: string, userId: string): Promise<void> {
+    logger.info('Updating download URL', { itemId: itemId });
+    await this.docClient
+      .update({
+        TableName: this.itemsTable,
+        Key: {
+          userId: userId,
+          itemId: itemId
+        },
+        UpdateExpression: 'set downloadUrl = :downloadUrl',
+        ExpressionAttributeValues: {
+          ':downloadUrl': getDownloadUrl(itemId)
         }
       })
       .promise();

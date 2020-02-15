@@ -1,9 +1,20 @@
 import { ItemAccess } from '../../dataLayer/itemAccess';
-import { createItem, getItems, getFilter, getItem, updateItem, deleteItem } from './item';
+import {
+  createItem,
+  getItems,
+  getFilter,
+  getItem,
+  updateItem,
+  deleteItem,
+  updateDownloadUrl,
+  getUploadUrl
+} from './item';
 import { CreateItemRequest } from '../../requests/CreateItemRequest';
 import { UpdateItemRequest } from '../../requests/UpdateItemRequest';
+import { ItemStorage } from '../../storageLayer/itemStorage';
 
 jest.mock('../../dataLayer/itemAccess');
+jest.mock('../../storageLayer/itemStorage');
 
 describe('Item business logic - createItem()', () => {
   test('createItem() accesses the data layer once', async () => {
@@ -68,6 +79,21 @@ describe('Item business logic - updateItem()', () => {
   });
 });
 
+describe('Item business logic - updateDownloadUrl()', () => {
+  test('updateDownloadUrl() accesses the data layer once', async () => {
+    expect(ItemAccess.prototype.updateDownloadUrl).not.toHaveBeenCalled();
+    await updateDownloadUrl('itemId', 'userId');
+    expect(ItemAccess.prototype.updateDownloadUrl).toHaveBeenCalledTimes(1);
+  });
+
+  test('updateDownloadUrl() passes proper parameters to the data layer', async () => {
+    const itemId = 'itemId';
+    const userId = 'userId';
+    await updateDownloadUrl(itemId, userId);
+    expect(ItemAccess.prototype.updateDownloadUrl).toHaveBeenCalledWith(itemId, userId);
+  });
+});
+
 describe('Item business logic - deleteItem()', () => {
   test('deleteItem() accesses the data layer once', async () => {
     expect(ItemAccess.prototype.deleteItem).not.toHaveBeenCalled();
@@ -80,5 +106,19 @@ describe('Item business logic - deleteItem()', () => {
     const userId = 'userId';
     await deleteItem(itemId, userId);
     expect(ItemAccess.prototype.deleteItem).toHaveBeenCalledWith(itemId, userId);
+  });
+});
+
+describe('Item business logic - getUploadUrl()', () => {
+  test('getUploadUrl() accesses the data layer once', async () => {
+    expect(ItemStorage.prototype.getUploadUrl).not.toHaveBeenCalled();
+    getUploadUrl('itemId');
+    expect(ItemStorage.prototype.getUploadUrl).toHaveBeenCalledTimes(1);
+  });
+
+  test('getUploadUrl() passes proper parameters to the data layer', async () => {
+    const itemId = 'itemId';
+    getUploadUrl(itemId);
+    expect(ItemStorage.prototype.getUploadUrl).toHaveBeenCalledWith(itemId);
   });
 });
