@@ -1,4 +1,7 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import "./AddItem.css";
 
 const AddItem = ({ addItem }) => {
   let input;
@@ -14,8 +17,17 @@ const AddItem = ({ addItem }) => {
           input.value = "";
         }}
       >
-        <input ref={node => (input = node)} />
-        <button type="submit">Add Item</button>
+        <div className="AddItem-textField-container">
+          <TextField
+            className="AddItem-textField"
+            label="Item"
+            variant="outlined"
+            inputRef={node => (input = node)}
+          />
+        </div>
+        <Button variant="contained" color="primary" type="submit">
+          Add
+        </Button>
       </form>
     </div>
   );
