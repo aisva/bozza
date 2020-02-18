@@ -17,9 +17,8 @@ const AddItem = ({ addItem }) => {
           input.value = "";
         }}
       >
-        <div className="AddItem-textField-container">
+        <div className="AddItem-textfield-container">
           <TextField
-            className="AddItem-textField"
             label="Item"
             variant="outlined"
             inputRef={node => (input = node)}
