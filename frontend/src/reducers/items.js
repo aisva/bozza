@@ -1,6 +1,9 @@
+import Logger from "../utils/logger";
+
 const items = (state = [], action) => {
   switch (action.type) {
     case "ADD_ITEM":
+      Logger("Items reducer", "Adding an item");
       return [
         ...state,
         {
@@ -10,6 +13,7 @@ const items = (state = [], action) => {
         }
       ];
     case "TOGGLE_ITEM":
+      Logger("Items reducer", "Toggling an item", true);
       return state.map(item =>
         item.id === action.id ? { ...item, completed: !item.completed } : item
       );
