@@ -23,7 +23,7 @@
     "eject": "react-scripts eject",
     "prettier": "npx prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "dev": "npm run prettier && npm test -- --watchAll=false && npm start",
-    "prod": "npm run prettier && npm test -- --watchAll=false && npm run build"
+    "prod": "npm run prettier && npm test -- --watchAll=false && npm run build && serve -s build"
   },
   "eslintConfig": {
     "extends": "react-app"
