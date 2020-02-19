@@ -1,4 +1,4 @@
-const Logger = (entity, message, error = false) => {
+const log = (entity, message, error = false) => {
   if (process.env.NODE_ENV == null || process.env.NODE_ENV === "development") {
     const msg = `[${new Date().toISOString()}] ${entity} -> '${message}'`;
     if (!error) {
@@ -9,4 +9,4 @@ const Logger = (entity, message, error = false) => {
   }
 };
 
-export default Logger;
+export default log;
