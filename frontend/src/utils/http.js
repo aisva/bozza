@@ -19,9 +19,9 @@ const get = async (url, body = null, token = null) =>
 const post = async (url, body = null, token = null) =>
   request("POST", url, body, token);
 
-const api = {
+const http = {
   get,
   post
 };
 
-export default api;
+export default http;
