@@ -1,27 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import "./AddItem.css";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../actions";
 
-const AddItem = ({ addItem }) => {
-  let input;
+const AddItem = () => {
+  const [item, setItem] = useState("");
+  const dispatch = useDispatch();
   return (
     <div>
       <form
-        onSubmit={e => {
-          e.preventDefault();
-          if (!input.value.trim()) {
+        onSubmit={event => {
+          event.preventDefault();
+          if (!item.trim()) {
             return;
           }
-          addItem(input.value);
-          input.value = "";
+          dispatch(addItem(item));
+          setItem("");
         }}
       >
         <div className="AddItem-textfield-container">
           <TextField
             label="Item"
             variant="outlined"
-            inputRef={node => (input = node)}
+            value={item}
+            onChange={event => setItem(event.target.value)}
           />
         </div>
         <Button variant="contained" color="primary" type="submit">

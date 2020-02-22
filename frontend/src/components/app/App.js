@@ -1,14 +1,14 @@
 import React from "react";
 import "./App.css";
-import ListContainer from "../../containers/List";
-import AddItemContainer from "../../containers/AddItem";
 import TestApi from "../testApi/TestApi";
+import List from "../list/List";
+import AddItem from "../addItem/AddItem";
 
 function App() {
   return (
     <div className="App">
-      <AddItemContainer />
-      <ListContainer />
+      <AddItem />
+      <List />
       <TestApi />
     </div>
   );
