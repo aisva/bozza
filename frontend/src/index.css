@@ -1,8 +1,15 @@
 :root {
-  --color: #009688;
+  --palette-primary-main: #000000;
+  --palette-secondary-main: #ff0088;
 }
 
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;
+  font-size: 14px;
+}
+
+div,
+input {
+  box-sizing: border-box;
 }

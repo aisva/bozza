@@ -6,15 +6,17 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./reducers";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import teal from "@material-ui/core/colors/teal";
-import deepPurple from "@material-ui/core/colors/deepPurple";
 
 export const store = createStore(rootReducer);
 
 const theme = createMuiTheme({
   palette: {
-    primary: teal,
-    secondary: deepPurple
+    primary: {
+      main: "#000000"
+    },
+    secondary: {
+      main: "#ff0088"
+    }
   }
 });
 
