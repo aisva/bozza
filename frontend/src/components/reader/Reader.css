@@ -1,0 +1,43 @@
+.Reader-root {
+  display: block;
+  overflow: auto;
+  padding: var(--space-md);
+  padding-bottom: 0px;
+  width: 100%;
+}
+
+.Reader-due-date {
+  padding-bottom: var(--space-md);
+  color: var(--palette-secondary-main);
+  font-weight: bold;
+}
+
+.Reader-body {
+  padding-bottom: var(--space-md);
+  line-height: var(--line-height-lg);
+  font-size: var(--font-size-lg);
+}
+
+.Reader-date {
+  color: var(--color-tertiary-dark);
+  padding-bottom: var(--space-md);
+}
+
+.Reader-due-date,
+.Reader-body,
+.Reader-date {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .Reader-root {
+    padding: var(--space-sm);
+    padding-bottom: 0px;
+  }
+
+  .Reader-due-date,
+  .Reader-body,
+  .Reader-date {
+    padding-bottom: var(--space-sm);
+  }
+}

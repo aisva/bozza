@@ -1,22 +1,11 @@
 import log from "../utils/log";
+import { type } from "../actions";
 
 const items = (state = [], action) => {
   switch (action.type) {
-    case "ADD_ITEM":
-      log("Items reducer", "Adding an item");
-      return [
-        ...state,
-        {
-          id: action.id,
-          text: action.text,
-          completed: false
-        }
-      ];
-    case "TOGGLE_ITEM":
-      log("Items reducer", "Toggling an item", true);
-      return state.map(item =>
-        item.id === action.id ? { ...item, completed: !item.completed } : item
-      );
+    case type.ADD_ITEM:
+      log("Items reducer", "Adding item with id: " + action.item.itemId);
+      return [action.item, ...state];
     default:
       return state;
   }

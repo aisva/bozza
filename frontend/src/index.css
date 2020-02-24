@@ -1,12 +1,50 @@
 :root {
+  /* Colors */
   --palette-primary-main: #000000;
   --palette-secondary-main: #ff0088;
+  --color-negative: white;
+  --color-tertiary-dark: #999;
+  --color-tertiary: #ccc;
+  --color-tertiary-light: #eee;
+  /* Dimensions */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-xxl: 64px;
+  --border: 1px;
+  /* Dimensions (master) */
+  --master-width: 30%;
+  --master-max-width: 576px;
+  --master-min-width: 320px;
+  --master-min-width-lg: 380px;
+  /* Dimensions (input) */
+  --input-height: 36px;
+  /* Dimensions (item) */
+  --item-max-height: 50px;
+  /* Dimensions (dialog) */
+  --dialog-background-opacity: 0.5;
+  --dialog-background-z-index: 1;
+  --dialog-container-z-index: 2;
+  --dialog-container-width: 50vw;
+  --dialog-container-width-sm: 90vw;
+  --dialog-container-min-width: 600px;
+  --dialog-container-max-width: 1200px;
+  --dialog-container-min-height: 50vh;
+  --dialog-container-max-height: 90vh;
+  /* Dimensions (font) */
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --line-height-lg: 1.5em;
 }
 
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;
-  font-size: 14px;
+  font-size: var(--font-size-md);
 }
 
 div,

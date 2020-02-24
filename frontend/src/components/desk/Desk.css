@@ -1,306 +1,46 @@
-/* Desk */
-
 .Desk-root {
   flex-direction: row;
   width: 100vw;
   display: flex;
 }
 
-/* Master */
-
-.Master-root {
-  width: 30%;
-  max-width: 576px;
-  min-width: 320px;
+.Desk-master {
+  width: var(--master-width);
+  max-width: var(--master-max-width);
+  min-width: var(--master-min-width);
   height: 100vh;
-  padding-top: 64px;
+  padding-top: var(--space-xxl);
   position: relative;
   display: flex;
 }
 
 @media (max-width: 768px) {
-  .Master-root {
+  .Desk-master {
     width: 100%;
     max-width: none;
   }
 
-  .Master-root.hide {
+  .Desk-master.hide {
     display: none;
   }
 }
 
 @media (min-width: 992px) {
-  .Master-root {
-    min-width: 380px;
+  .Desk-master {
+    min-width: var(--master-min-width-lg);
   }
 }
 
-/* Detail */
-
-.Detail-root {
+.Desk-detail {
   flex: 1;
   height: 100vh;
-  padding-top: 64px;
+  padding-top: var(--space-xxl);
   position: relative;
   display: flex;
 }
 
 @media (max-width: 768px) {
-  .Detail-root.hide {
+  .Desk-detail.hide {
     display: none;
-  }
-}
-
-/* Toolbar */
-
-.Toolbar-root {
-  height: 64px;
-  background-color: var(--palette-primary-main);
-  justify-content: space-between;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  display: flex;
-}
-
-.Toolbar-button-area {
-  color: white;
-  align-items: center;
-  display: flex;
-}
-
-.Toolbar-button-area:first-of-type {
-  flex: 1;
-}
-
-.Toolbar-button-area.sm {
-  visibility: hidden;
-}
-
-@media (max-width: 768px) {
-  .Toolbar-button-area.sm {
-    visibility: visible;
-  }
-}
-
-.Toolbar-button-area.left-spaced {
-  padding-left: 16px;
-}
-
-/* Input */
-
-.Input {
-  height: 36px;
-  border-radius: 4px;
-  background-color: #999;
-  border: none;
-  outline: none;
-  padding: 8px;
-  width: 100%;
-  color: white;
-  font-size: 14px;
-}
-
-.Input::placeholder {
-  color: white;
-}
-
-/* List */
-
-.List-root {
-  border-right: 1px solid #ccc;
-  width: 100%;
-  display: block;
-  overflow: auto;
-}
-
-@media (max-width: 768px) {
-  .List-root {
-    border: none;
-  }
-}
-
-/* Item */
-
-.Item-root {
-  flex-direction: row;
-  padding: 16px;
-  padding-left: 0px;
-  width: 100%;
-  display: flex;
-}
-
-.Item-root.selected {
-  background-color: #eee;
-}
-
-.Item-icon-area {
-  padding: 0px 8px;
-  align-items: flex-start;
-}
-
-.Item-text-area {
-  flex-direction: column;
-  cursor: pointer;
-  width: 100%;
-}
-
-.Item-body {
-  max-height: 50px;
-  overflow: hidden;
-}
-
-.Item-footer {
-  padding-top: 8px;
-  flex-direction: row;
-  justify-content: space-between;
-  display: flex;
-}
-
-.Item-date {
-  font-size: 12px;
-  color: #999;
-}
-
-.Item-date.accented {
-  color: var(--palette-secondary-main);
-  font-weight: bold;
-}
-
-@media (max-width: 768px) {
-  .Item-root.selected {
-    background-color: transparent;
-  }
-}
-
-/* Reader */
-
-.Reader-root {
-  display: block;
-  overflow: auto;
-  padding: 24px;
-  padding-bottom: 0px;
-  width: 100%;
-}
-
-.Reader-due-date {
-  padding-bottom: 24px;
-  color: var(--palette-secondary-main);
-  font-weight: bold;
-}
-
-.Reader-body {
-  padding-bottom: 24px;
-  line-height: 1.5em;
-  font-size: 16px;
-}
-
-.Reader-date {
-  color: #999;
-  padding-bottom: 24px;
-}
-
-.Reader-due-date,
-.Reader-body,
-.Reader-date {
-  width: 100%;
-}
-
-@media (max-width: 768px) {
-  .Reader-root {
-    padding: 16px;
-    padding-bottom: 0px;
-  }
-
-  .Reader-due-date,
-  .Reader-body,
-  .Reader-date {
-    padding-bottom: 16px;
-  }
-}
-
-/* Fab */
-
-.Fab-root {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-}
-
-/* Dialog */
-
-.Dialog-root {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.Dialog-root.hide {
-  display: none;
-}
-
-.Dialog-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--palette-primary-main);
-  opacity: 0.5;
-  z-index: 1;
-}
-
-.Dialog-container {
-  width: 50vw;
-  min-width: 600px;
-  max-width: 1200px;
-  min-height: 50vh;
-  max-height: 90vh;
-  background-color: white;
-  z-index: 2;
-  border-radius: 8px;
-  flex-direction: column;
-  display: flex;
-}
-
-.Dialog-header {
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  min-height: 64px;
-  padding: 0px 16px;
-  display: flex;
-}
-
-.Dialog-body {
-  width: 100%;
-  flex: 1;
-  overflow: auto;
-  padding: 0px 32px;
-  display: block;
-}
-
-.Dialog-body > div {
-  padding-bottom: 32px;
-}
-
-@media (max-width: 768px) {
-  .Dialog-container {
-    width: 90vw;
-    min-width: 0;
-  }
-
-  .Dialog-header {
-    padding: 0px 4px;
-  }
-
-  .Dialog-body {
-    padding: 0px 16px;
   }
 }

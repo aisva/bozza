@@ -3,8 +3,7 @@ import { shallow } from "enzyme";
 import List from "./List";
 
 jest.mock("react-redux", () => ({
-  useDispatch: () => {},
-  useSelector: () => [{ id: 1, completed: false, text: "text" }]
+  useSelector: () => []
 }));
 
 describe("List component", () => {

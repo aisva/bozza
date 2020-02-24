@@ -1,0 +1,15 @@
+.SearchInput {
+  height: var(--input-height);
+  border-radius: var(--space-xxs);
+  background-color: var(--color-tertiary-dark);
+  border: none;
+  outline: none;
+  padding: var(--space-xs);
+  width: 100%;
+  color: var(--color-negative);
+  font-size: var(--font-size-md);
+}
+
+.SearchInput::placeholder {
+  color: var(--color-negative);
+}

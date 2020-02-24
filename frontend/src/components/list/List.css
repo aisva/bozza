@@ -1,0 +1,12 @@
+.List-root {
+  border-right: var(--border) solid var(--color-tertiary);
+  width: 100%;
+  display: block;
+  overflow: auto;
+}
+
+@media (max-width: 768px) {
+  .List-root {
+    border: none;
+  }
+}

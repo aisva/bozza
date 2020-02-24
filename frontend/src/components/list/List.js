@@ -1,21 +1,16 @@
 import React from "react";
+import "./List.css";
+import { useSelector } from "react-redux";
 import Item from "../item/Item";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleItem } from "../../actions";
 
 const List = () => {
   const items = useSelector(state => state.items);
-  const dispatch = useDispatch();
   return (
-    <ul>
+    <div className="List-root">
       {items.map(item => (
-        <Item
-          key={item.id}
-          {...item}
-          onClick={() => dispatch(toggleItem(item.id))}
-        />
+        <Item key={item.itemId} {...item} />
       ))}
-    </ul>
+    </div>
   );
 };
 

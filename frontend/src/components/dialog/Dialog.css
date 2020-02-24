@@ -1,0 +1,74 @@
+.Dialog-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.Dialog-root.hide {
+  display: none;
+}
+
+.Dialog-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--palette-primary-main);
+  opacity: var(--dialog-background-opacity);
+  z-index: var(--dialog-background-z-index);
+}
+
+.Dialog-container {
+  width: var(--dialog-container-width);
+  min-width: var(--dialog-container-min-width);
+  max-width: var(--dialog-container-max-width);
+  min-height: var(--dialog-container-min-height);
+  max-height: var(--dialog-container-max-height);
+  background-color: var(--color-negative);
+  z-index: var(--dialog-container-z-index);
+  border-radius: var(--space-xs);
+  flex-direction: column;
+  display: flex;
+}
+
+.Dialog-header {
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: var(--space-xxl);
+  padding: 0px var(--space-sm);
+  display: flex;
+}
+
+.Dialog-body {
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+  padding: 0px var(--space-lg);
+  display: block;
+}
+
+.Dialog-body > div {
+  padding-bottom: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .Dialog-container {
+    width: var(--dialog-container-width-sm);
+    min-width: 0;
+  }
+
+  .Dialog-header {
+    padding: 0px var(--space-xxs);
+  }
+
+  .Dialog-body {
+    padding: 0px var(--space-sm);
+  }
+}
