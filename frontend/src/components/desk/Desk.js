@@ -5,6 +5,7 @@ import stateUtils from "../../utils/stateUtils";
 import Reader from "../reader/Reader";
 import Dialog from "../dialog/Dialog";
 import List from "../list/List";
+import AlertDialog from "../alertDialog/AlertDialog";
 import MasterToolbar from "../masterToolbar/MasterToolbar";
 import DetailToolbar from "../detailToolbar/DetailToolbar";
 import FloatingActionButton from "../floatingActionButton/FloatingActionButton";
@@ -26,7 +27,9 @@ const Desk = () => {
   useEffect(() => {
     dispatch(setShowDialog(false));
   }, [dispatch]);
+
   console.log(useStore().getState());
+
   return (
     <div className="Desk-root">
       <div className={"Desk-master" + (showMaster ? "" : " hide")}>
@@ -39,6 +42,7 @@ const Desk = () => {
         <Reader />
       </div>
       <Dialog />
+      <AlertDialog />
     </div>
   );
 };

@@ -35,7 +35,7 @@
 
 .Item-date {
   font-size: var(--font-size-sm);
-  color: var(--color-tertiary);
+  color: var(--color-tertiary-dark);
 }
 
 .Item-date.accented {
