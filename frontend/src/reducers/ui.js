@@ -42,6 +42,15 @@ const ui = (state = [], action) => {
     case type.SET_SHOW_DESK:
       log("UI reducer", "Setting show desk to: " + action.show.toString());
       return { ...state, showDesk: action.show };
+    case type.SET_SHOW_FEEDBACK:
+      log("UI reducer", "Setting show feedback to: " + action.show.toString());
+      return { ...state, showFeedback: action.show };
+    case type.SET_FEEDBACK_MODE:
+      log("UI reducer", "Setting feedback mode to: " + action.mode);
+      return { ...state, feedbackMode: action.mode };
+    case type.SET_FEEDBACK_MESSAGE:
+      log("UI reducer", "Setting feedback message to: " + action.message);
+      return { ...state, feedbackMessage: action.message };
     default:
       return state;
   }

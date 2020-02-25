@@ -8,13 +8,12 @@ const request = async (method, url, body = null, token = null) => {
     let error = response.statusText;
     const errorBody = await response.json();
     if (errorBody != null && errorBody.error != null) error = errorBody.error;
-    throw new Error(error);
+    throw new Error(response.status + ": " + error);
   }
   return response.json();
 };
 
-const get = async (url, body = null, token = null) =>
-  request("GET", url, body, token);
+const get = async (url, token = null) => request("GET", url, null, token);
 
 const post = async (url, body = null, token = null) =>
   request("POST", url, body, token);

@@ -1,24 +1,21 @@
 import React, { useEffect } from "react";
 import "./Desk.css";
 import { useDispatch, useSelector, useStore } from "react-redux";
-import stateUtils from "../../utils/stateUtils";
 import Reader from "../reader/Reader";
 import Dialog from "../dialog/Dialog";
 import List from "../list/List";
 import AlertDialog from "../alertDialog/AlertDialog";
+import Feedback from "../feedback/Feedback";
 import MasterToolbar from "../masterToolbar/MasterToolbar";
 import DetailToolbar from "../detailToolbar/DetailToolbar";
 import FloatingActionButton from "../floatingActionButton/FloatingActionButton";
-import { setCurrentItemId, setShowMaster, setShowDialog } from "../../actions";
+import { setShowMaster, setShowDialog } from "../../actions";
+import apiUtils from "../../utils/apiUtils";
 
 const Desk = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    stateUtils.addItems(stateUtils.items, dispatch);
-    dispatch(setCurrentItemId("3"));
-  }, [dispatch]);
-  useEffect(() => {
-    dispatch(setCurrentItemId("6"));
+    apiUtils.getItems(dispatch);
   }, [dispatch]);
   const showMaster = useSelector(state => state.ui.showMaster);
   useEffect(() => {
@@ -43,6 +40,7 @@ const Desk = () => {
       </div>
       <Dialog />
       <AlertDialog />
+      <Feedback />
     </div>
   );
 };

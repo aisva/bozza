@@ -14,6 +14,11 @@ export const filterMode = {
   PENDING: "PENDING"
 };
 
+export const feedbackMode = {
+  PROGRESS: "PROGRESS",
+  ERROR: "ERROR"
+};
+
 export const type = {
   ADD_ITEM: "ADD_ITEM",
   UPDATE_ITEM: "UPDATE_ITEM",
@@ -29,7 +34,10 @@ export const type = {
   SET_FILTER_MODE: "SET_FILTER_MODE",
   SET_SEARCH_TERMS: "SET_SEARCH_TERMS",
   CLEAR_STATE: "CLEAR_STATE",
-  SET_SHOW_DESK: "SET_SHOW_DESK"
+  SET_SHOW_DESK: "SET_SHOW_DESK",
+  SET_SHOW_FEEDBACK: "SET_SHOW_FEEDBACK",
+  SET_FEEDBACK_MODE: "SET_FEEDBACK_MODE",
+  SET_FEEDBACK_MESSAGE: "SET_FEEDBACK_MESSAGE"
 };
 
 export const addItem = item => ({
@@ -104,4 +112,19 @@ export const clearState = () => ({
 export const setShowDesk = show => ({
   type: type.SET_SHOW_DESK,
   show
+});
+
+export const setShowFeedback = show => ({
+  type: type.SET_SHOW_FEEDBACK,
+  show
+});
+
+export const setFeedbackMode = mode => ({
+  type: type.SET_FEEDBACK_MODE,
+  mode
+});
+
+export const setFeedbackMessage = message => ({
+  type: type.SET_FEEDBACK_MESSAGE,
+  message
 });

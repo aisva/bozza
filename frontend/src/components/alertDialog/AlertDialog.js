@@ -13,8 +13,7 @@ import {
   updateItem,
   setCurrentItemId,
   setListScrollToTop,
-  setShowMaster,
-  clearState
+  setShowMaster
 } from "../../actions";
 import stateUtils from "../../utils/stateUtils";
 import apiUtils from "../../utils/apiUtils";
@@ -77,7 +76,7 @@ export default function AlertDialog() {
         break;
       case alertDialogMode.SIGN_OUT:
         hideDialog();
-        dispatch(clearState());
+        apiUtils.signOut(dispatch);
         break;
       default:
         break;
