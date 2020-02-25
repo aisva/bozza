@@ -3,7 +3,7 @@ import "./List.css";
 import { useSelector, useDispatch } from "react-redux";
 import Item from "../item/Item";
 import dateUtils from "../../utils/dateUtils";
-import stateUtils from "../../utils/stateUtils";
+import apiUtils from "../../utils/apiUtils";
 import {
   setListScrollToTop,
   setCurrentItemId,
@@ -12,7 +12,7 @@ import {
 
 const List = () => {
   const items = useSelector(state => state.items);
-  const item = stateUtils.getItemById(
+  const item = apiUtils.getItemById(
     items,
     useSelector(state => state.currentItemId)
   );

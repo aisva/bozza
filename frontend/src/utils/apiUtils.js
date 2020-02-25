@@ -54,6 +54,11 @@ const getItems = async dispatch => {
   }
 };
 
+const getItemById = (items, id) => {
+  const filteredItems = items.filter(item => item.itemId === id);
+  return filteredItems.length > 0 ? filteredItems[0] : null;
+};
+
 const handleError = (error, message, dispatch) => {
   log(entity, `Error getting items: ${error.message}`, true);
   showProgress(false, dispatch);
@@ -109,6 +114,7 @@ const apiUtils = {
   hasToken,
   removeToken,
   getItems,
+  getItemById,
   createItem,
   updateItem,
   signOut

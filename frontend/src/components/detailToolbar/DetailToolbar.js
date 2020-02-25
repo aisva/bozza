@@ -15,12 +15,12 @@ import {
   setAlertDialogMode,
   alertDialogMode
 } from "../../actions";
-import stateUtils from "../../utils/stateUtils";
+import apiUtils from "../../utils/apiUtils";
 
 const DetailToolbar = () => {
   const dispatch = useDispatch();
   const showMaster = useSelector(state => state.ui.showMaster);
-  const item = stateUtils.getItemById(
+  const item = apiUtils.getItemById(
     useSelector(state => state.items),
     useSelector(state => state.currentItemId)
   );

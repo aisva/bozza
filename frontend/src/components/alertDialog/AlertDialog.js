@@ -15,12 +15,11 @@ import {
   setListScrollToTop,
   setShowMaster
 } from "../../actions";
-import stateUtils from "../../utils/stateUtils";
 import apiUtils from "../../utils/apiUtils";
 
 export default function AlertDialog() {
   const mode = useSelector(state => state.ui.alertDialogMode);
-  const item = stateUtils.getItemById(
+  const item = apiUtils.getItemById(
     useSelector(state => state.items),
     useSelector(state => state.currentItemId)
   );

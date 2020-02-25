@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import "./Reader.css";
 import { useSelector, useDispatch } from "react-redux";
-import stateUtils from "../../utils/stateUtils";
+import apiUtils from "../../utils/apiUtils";
 import dateUtils from "../../utils/dateUtils";
 import { setReaderScrollToTop } from "../../actions";
 
 const Reader = () => {
   const items = useSelector(state => state.items);
   const currentItemId = useSelector(state => state.currentItemId);
-  const item = stateUtils.getItemById(items, currentItemId);
+  const item = apiUtils.getItemById(items, currentItemId);
   const readerScrollToTop = useSelector(state => state.ui.readerScrollToTop);
   const dispatch = useDispatch();
   const ref = useRef();

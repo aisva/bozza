@@ -18,11 +18,10 @@ import {
   setShowMaster
 } from "../../actions";
 import apiUtils from "../../utils/apiUtils";
-import stateUtils from "../../utils/stateUtils";
 
 const Dialog = () => {
   const mode = useSelector(state => state.ui.dialogMode);
-  const item = stateUtils.getItemById(
+  const item = apiUtils.getItemById(
     useSelector(state => state.items),
     useSelector(state => state.currentItemId)
   );
