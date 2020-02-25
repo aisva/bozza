@@ -55,13 +55,7 @@ const Dialog = () => {
 
   const hideDialog = () => {
     dispatch(setShowDialog(false));
-    clear();
-  };
-
-  const clear = () => {
     setErrors({});
-    resetNote();
-    resetDueDate();
   };
 
   const validate = () => {
@@ -72,11 +66,17 @@ const Dialog = () => {
     return Object.entries(errors).length === 0;
   };
 
-  const save = () => {
+  const save = async () => {
     if (!validate()) return;
     const persistedItem = !isEditMode()
-      ? apiUtils.createItem(note, dueDate)
-      : apiUtils.updateItem(item, note, dueDate);
+      ? await apiUtils.createItem(dispatch, note, dueDate)
+      : await apiUtils.updateItem(
+          dispatch,
+          item,
+          note,
+          item.dueDate != null && dueDate == null ? "" : dueDate
+        );
+    if (persistedItem == null) return;
     dispatch(
       !isEditMode() ? addItem(persistedItem) : updateItem(persistedItem)
     );

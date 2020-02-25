@@ -59,7 +59,7 @@ export default function AlertDialog() {
     }
   };
 
-  const mainAction = () => {
+  const mainAction = async () => {
     switch (mode) {
       case alertDialogMode.DELETE:
         dispatch(deleteItem(item));
@@ -67,7 +67,13 @@ export default function AlertDialog() {
         hideDialog();
         break;
       case alertDialogMode.UPDATE:
-        const persistedItem = apiUtils.updateItem(item, item.text, null);
+        const persistedItem = await apiUtils.updateItem(
+          dispatch,
+          item,
+          item.text,
+          ""
+        );
+        if (persistedItem == null) return;
         dispatch(updateItem(persistedItem));
         dispatch(setCurrentItemId(persistedItem.itemId));
         dispatch(setListScrollToTop(true));

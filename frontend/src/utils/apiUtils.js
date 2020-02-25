@@ -6,7 +6,11 @@ import {
   setFeedbackMode,
   feedbackMode
 } from "../actions";
-import { getItems as apiGetItems } from "../api/items/items";
+import {
+  getItems as apiGetItems,
+  createItem as apiCreateItem,
+  updateItem as apiUpdateItem
+} from "../api/items/items";
 import log from "./log";
 import { addItem } from "../actions";
 
@@ -49,7 +53,10 @@ const getItems = async dispatch => {
       );
     }
     showProgress(false, dispatch);
+    if (response.items.length === 0)
+      showError(dispatch, "You have not written any note yet");
   } catch (error) {
+    log(entity, `Error getting items: ${error.message}`, true);
     handleError(error, "Unable to load notes", dispatch);
   }
 };
@@ -59,8 +66,54 @@ const getItemById = (items, id) => {
   return filteredItems.length > 0 ? filteredItems[0] : null;
 };
 
+const createItem = async (dispatch, text, dueDate = null) => {
+  showProgress(true, dispatch, "Saving note...");
+  try {
+    const response = await apiCreateItem(text, dueDate);
+    const item = response.item;
+    showProgress(false, dispatch);
+    return new Item(
+      item.itemId,
+      item.userId,
+      item.text,
+      item.createdAt,
+      item.updatedAt,
+      item.dueDate
+    );
+  } catch (error) {
+    log(entity, `Error creating an item: ${error.message}`, true);
+    handleError(error, "Unable to save note", dispatch);
+  }
+};
+
+const updateItem = async (dispatch, item, text, dueDate) => {
+  showProgress(true, dispatch, "Saving note...");
+  try {
+    await apiUpdateItem(item.itemId, text, dueDate);
+    showProgress(false, dispatch);
+    return new Item(
+      item.itemId,
+      item.userId,
+      text,
+      item.createdAt,
+      new Date().toISOString(),
+      dueDate != null && dueDate === ""
+        ? null
+        : dueDate != null
+        ? dueDate.toISOString()
+        : null
+    );
+  } catch (error) {
+    log(
+      entity,
+      `Error updating item with id: ${item.itemId}. Error message: ${error.message}`,
+      true
+    );
+    handleError(error, "Unable to save note", dispatch);
+  }
+};
+
 const handleError = (error, message, dispatch) => {
-  log(entity, `Error getting items: ${error.message}`, true);
   showProgress(false, dispatch);
   if (
     error.message.startsWith(unauthorizedStatus) ||
@@ -69,9 +122,7 @@ const handleError = (error, message, dispatch) => {
     signOut(dispatch);
     return;
   }
-  dispatch(setShowFeedback(true));
-  dispatch(setFeedbackMode(feedbackMode.ERROR));
-  dispatch(setFeedbackMessage(message));
+  showError(dispatch, message);
 };
 
 const showProgress = (show, dispatch, message = "") => {
@@ -81,26 +132,10 @@ const showProgress = (show, dispatch, message = "") => {
   dispatch(setFeedbackMessage(message));
 };
 
-const createItem = (text, dueDate) => {
-  return new Item(
-    Math.floor(Math.random() * 10000).toString(),
-    "userId",
-    text,
-    new Date().toISOString(),
-    new Date().toISOString(),
-    dueDate != null ? dueDate.toISOString() : null
-  );
-};
-
-const updateItem = (item, text, dueDate) => {
-  return new Item(
-    item.itemId,
-    item.userId,
-    text,
-    item.createdAt,
-    new Date().toISOString(),
-    dueDate != null ? dueDate.toISOString() : null
-  );
+const showError = (dispatch, message) => {
+  dispatch(setShowFeedback(true));
+  dispatch(setFeedbackMode(feedbackMode.ERROR));
+  dispatch(setFeedbackMessage(message));
 };
 
 const signOut = dispatch => {
