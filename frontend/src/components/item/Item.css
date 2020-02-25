@@ -42,9 +42,3 @@
   color: var(--palette-secondary-main);
   font-weight: bold;
 }
-
-@media (max-width: 768px) {
-  .Item-root.selected {
-    background-color: transparent;
-  }
-}

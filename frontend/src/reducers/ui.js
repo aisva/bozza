@@ -33,6 +33,15 @@ const ui = (state = [], action) => {
     case type.SET_ALERT_DIALOG_MODE:
       log("UI reducer", "Setting alert dialog mode to: " + action.mode);
       return { ...state, alertDialogMode: action.mode };
+    case type.SET_FILTER_MODE:
+      log("UI reducer", "Setting filter mode to: " + action.mode);
+      return { ...state, filterMode: action.mode };
+    case type.SET_SEARCH_TERMS:
+      log("UI reducer", "Setting search terms to: " + action.terms);
+      return { ...state, searchTerms: action.terms };
+    case type.SET_SHOW_DESK:
+      log("UI reducer", "Setting show desk to: " + action.show.toString());
+      return { ...state, showDesk: action.show };
     default:
       return state;
   }

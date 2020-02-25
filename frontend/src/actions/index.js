@@ -5,7 +5,13 @@ export const dialogMode = {
 
 export const alertDialogMode = {
   DELETE: "DELETE",
-  UPDATE: "UPDATE"
+  UPDATE: "UPDATE",
+  SIGN_OUT: "SIGN_OUT"
+};
+
+export const filterMode = {
+  ALL: "ALL",
+  PENDING: "PENDING"
 };
 
 export const type = {
@@ -19,7 +25,11 @@ export const type = {
   SET_LIST_SCROLL_TO_TOP: "SET_LIST_SCROLL_TO_TOP",
   SET_READER_SCROLL_TO_TOP: "SET_READER_SCROLL_TO_TOP",
   SET_SHOW_ALERT_DIALOG: "SET_SHOW_ALERT_DIALOG",
-  SET_ALERT_DIALOG_MODE: "SET_ALERT_DIALOG_MODE"
+  SET_ALERT_DIALOG_MODE: "SET_ALERT_DIALOG_MODE",
+  SET_FILTER_MODE: "SET_FILTER_MODE",
+  SET_SEARCH_TERMS: "SET_SEARCH_TERMS",
+  CLEAR_STATE: "CLEAR_STATE",
+  SET_SHOW_DESK: "SET_SHOW_DESK"
 };
 
 export const addItem = item => ({
@@ -75,4 +85,23 @@ export const setShowAlertDialog = show => ({
 export const setAlertDialogMode = mode => ({
   type: type.SET_ALERT_DIALOG_MODE,
   mode
+});
+
+export const setFilterMode = mode => ({
+  type: type.SET_FILTER_MODE,
+  mode
+});
+
+export const setSearchTerms = terms => ({
+  type: type.SET_SEARCH_TERMS,
+  terms
+});
+
+export const clearState = () => ({
+  type: type.CLEAR_STATE
+});
+
+export const setShowDesk = show => ({
+  type: type.SET_SHOW_DESK,
+  show
 });

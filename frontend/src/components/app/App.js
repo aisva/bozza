@@ -1,20 +1,12 @@
 import React from "react";
-import "./App.css";
-import TestApi from "../testApi/TestApi";
 import Desk from "../desk/Desk";
+import Signer from "../signer/Signer";
+import { useSelector } from "react-redux";
 
-function App() {
-  const test = false;
+const App = () => {
+  const showDesk = useSelector(state => state.ui.showDesk);
 
-  if (test) {
-    return (
-      <div className="App">
-        <TestApi />
-      </div>
-    );
-  } else {
-    return <Desk />;
-  }
-}
+  return showDesk ? <Desk /> : <Signer />;
+};
 
 export default App;

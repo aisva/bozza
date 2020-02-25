@@ -14,7 +14,8 @@ import {
   setCurrentItemId,
   setShowDialog,
   dialogMode,
-  setListScrollToTop
+  setListScrollToTop,
+  setShowMaster
 } from "../../actions";
 import apiUtils from "../../utils/apiUtils";
 import stateUtils from "../../utils/stateUtils";
@@ -80,6 +81,7 @@ const Dialog = () => {
     dispatch(
       !isEditMode() ? addItem(persistedItem) : updateItem(persistedItem)
     );
+    dispatch(setShowMaster(true));
     dispatch(setCurrentItemId(persistedItem.itemId));
     dispatch(setListScrollToTop(true));
     hideDialog();
