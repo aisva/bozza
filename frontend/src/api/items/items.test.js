@@ -1,4 +1,4 @@
-import { getItems, createItem, updateItem } from "./items";
+import { getItems, createItem, updateItem, deleteItem } from "./items";
 import http from "../../utils/http";
 import apiUtils from "../../utils/apiUtils";
 
@@ -46,13 +46,13 @@ describe("Items API - createItem()", () => {
 });
 
 describe("Items API - updateItem()", () => {
-  test("updateItem() calls API's post() method once", async () => {
+  test("updateItem() calls API's patch() method once", async () => {
     expect(http.patch).not.toHaveBeenCalled();
     await updateItem("1", "text");
     expect(http.patch).toHaveBeenCalledTimes(1);
   });
 
-  test("updateItem() passes proper parameters to API's post() method", async () => {
+  test("updateItem() passes proper parameters to API's patch() method", async () => {
     const id = "1";
     const text = "text";
     const dueDate = "dueDate";
@@ -65,5 +65,19 @@ describe("Items API - updateItem()", () => {
       },
       apiUtils.getToken()
     );
+  });
+});
+
+describe("Items API - deleteItem()", () => {
+  test("deleteItem() calls API's delete() method once", async () => {
+    expect(http.del).not.toHaveBeenCalled();
+    await deleteItem("1");
+    expect(http.del).toHaveBeenCalledTimes(1);
+  });
+
+  test("deleteItem() passes proper parameters to API's delete() method", async () => {
+    const id = "1";
+    await deleteItem(id);
+    expect(http.del).toHaveBeenCalledWith(apiUrl + id, apiUtils.getToken());
   });
 });

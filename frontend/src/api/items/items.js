@@ -17,8 +17,13 @@ export const createItem = async (text, dueDate = null) => {
 };
 
 export const updateItem = async (id, text, dueDate = null) => {
-  log(`API: ${apiUrl}`, "Updating an item");
+  log(`API: ${apiUrl + id}`, `Updating item with id: ${id}`);
   const body =
     dueDate != null ? { text: text, dueDate: dueDate } : { text: text };
   return await http.patch(apiUrl + id, body, apiUtils.getToken());
+};
+
+export const deleteItem = async id => {
+  log(`API: ${apiUrl + id}`, `Deleting item with id: ${id}`);
+  return await http.del(apiUrl + id, apiUtils.getToken());
 };

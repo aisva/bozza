@@ -9,7 +9,8 @@ import {
 import {
   getItems as apiGetItems,
   createItem as apiCreateItem,
-  updateItem as apiUpdateItem
+  updateItem as apiUpdateItem,
+  deleteItem as apiDeleteItem
 } from "../api/items/items";
 import log from "./log";
 import { addItem } from "../actions";
@@ -113,6 +114,23 @@ const updateItem = async (dispatch, item, text, dueDate) => {
   }
 };
 
+const deleteItem = async (dispatch, item) => {
+  showProgress(true, dispatch, "Deleting note...");
+  try {
+    await apiDeleteItem(item.itemId);
+    showProgress(false, dispatch);
+    return true;
+  } catch (error) {
+    log(
+      entity,
+      `Error deleting item with id: ${item.itemId}. Error message: ${error.message}`,
+      true
+    );
+    handleError(error, "Unable to delete note", dispatch);
+    return false;
+  }
+};
+
 const handleError = (error, message, dispatch) => {
   showProgress(false, dispatch);
   if (
@@ -152,6 +170,7 @@ const apiUtils = {
   getItemById,
   createItem,
   updateItem,
+  deleteItem,
   signOut
 };
 

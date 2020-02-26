@@ -23,10 +23,13 @@ const post = async (url, body = null, token = null) =>
 const patch = async (url, body = null, token = null) =>
   request("PATCH", url, body, token);
 
+const del = async (url, token = null) => request("DELETE", url, null, token);
+
 const http = {
   get,
   post,
-  patch
+  patch,
+  del
 };
 
 export default http;

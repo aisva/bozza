@@ -62,6 +62,8 @@ export default function AlertDialog() {
   const mainAction = async () => {
     switch (mode) {
       case alertDialogMode.DELETE:
+        const deleted = await apiUtils.deleteItem(dispatch, item);
+        if (!deleted) return;
         dispatch(deleteItem(item));
         dispatch(setShowMaster(true));
         hideDialog();
