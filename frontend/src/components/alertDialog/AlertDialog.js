@@ -15,11 +15,12 @@ import {
   setListScrollToTop,
   setShowMaster
 } from "../../actions";
-import apiUtils from "../../utils/apiUtils";
+import userApiUtils from "../../utils/api/userApiUtils";
+import itemApiUtils from "../../utils/api/itemApiUtils";
 
 export default function AlertDialog() {
   const mode = useSelector(state => state.ui.alertDialogMode);
-  const item = apiUtils.getItemById(
+  const item = itemApiUtils.getItemById(
     useSelector(state => state.items),
     useSelector(state => state.currentItemId)
   );
@@ -62,14 +63,14 @@ export default function AlertDialog() {
   const mainAction = async () => {
     switch (mode) {
       case alertDialogMode.DELETE:
-        const deleted = await apiUtils.deleteItem(dispatch, item);
+        const deleted = await itemApiUtils.deleteItem(dispatch, item);
         if (!deleted) return;
         dispatch(deleteItem(item));
         dispatch(setShowMaster(true));
         hideDialog();
         break;
       case alertDialogMode.UPDATE:
-        const persistedItem = await apiUtils.updateItem(
+        const persistedItem = await itemApiUtils.updateItem(
           dispatch,
           item,
           item.text,
@@ -83,7 +84,7 @@ export default function AlertDialog() {
         break;
       case alertDialogMode.SIGN_OUT:
         hideDialog();
-        apiUtils.signOut(dispatch);
+        userApiUtils.signOut(dispatch);
         break;
       default:
         break;

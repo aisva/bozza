@@ -10,12 +10,12 @@ import MasterToolbar from "../masterToolbar/MasterToolbar";
 import DetailToolbar from "../detailToolbar/DetailToolbar";
 import FloatingActionButton from "../floatingActionButton/FloatingActionButton";
 import { setShowMaster, setShowDialog } from "../../actions";
-import apiUtils from "../../utils/apiUtils";
+import itemApiUtils from "../../utils/api/itemApiUtils";
 
 const Desk = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    apiUtils.getItems(dispatch);
+    itemApiUtils.getItems(dispatch);
   }, [dispatch]);
   const showMaster = useSelector(state => state.ui.showMaster);
   useEffect(() => {

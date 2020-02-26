@@ -17,11 +17,11 @@ import {
   setListScrollToTop,
   setShowMaster
 } from "../../actions";
-import apiUtils from "../../utils/apiUtils";
+import itemApiUtils from "../../utils/api/itemApiUtils";
 
 const Dialog = () => {
   const mode = useSelector(state => state.ui.dialogMode);
-  const item = apiUtils.getItemById(
+  const item = itemApiUtils.getItemById(
     useSelector(state => state.items),
     useSelector(state => state.currentItemId)
   );
@@ -69,8 +69,8 @@ const Dialog = () => {
   const save = async () => {
     if (!validate()) return;
     const persistedItem = !isEditMode()
-      ? await apiUtils.createItem(dispatch, note, dueDate)
-      : await apiUtils.updateItem(
+      ? await itemApiUtils.createItem(dispatch, note, dueDate)
+      : await itemApiUtils.updateItem(
           dispatch,
           item,
           note,

@@ -1,6 +1,6 @@
 import { getItems, createItem, updateItem, deleteItem } from "./items";
 import http from "../../utils/http";
-import apiUtils from "../../utils/apiUtils";
+import userApiUtils from "../../utils/api/userApiUtils";
 
 jest.mock("../../utils/http");
 
@@ -19,7 +19,7 @@ describe("Items API - getItems()", () => {
 
   test("getItems() passes proper parameters to API's post() method", async () => {
     await getItems();
-    expect(http.get).toHaveBeenCalledWith(apiUrl, apiUtils.getToken());
+    expect(http.get).toHaveBeenCalledWith(apiUrl, userApiUtils.getToken());
   });
 });
 
@@ -40,7 +40,7 @@ describe("Items API - createItem()", () => {
         text: text,
         dueDate: dueDate
       },
-      apiUtils.getToken()
+      userApiUtils.getToken()
     );
   });
 });
@@ -63,7 +63,7 @@ describe("Items API - updateItem()", () => {
         text: text,
         dueDate: dueDate
       },
-      apiUtils.getToken()
+      userApiUtils.getToken()
     );
   });
 });
@@ -78,6 +78,6 @@ describe("Items API - deleteItem()", () => {
   test("deleteItem() passes proper parameters to API's delete() method", async () => {
     const id = "1";
     await deleteItem(id);
-    expect(http.del).toHaveBeenCalledWith(apiUrl + id, apiUtils.getToken());
+    expect(http.del).toHaveBeenCalledWith(apiUrl + id, userApiUtils.getToken());
   });
 });
