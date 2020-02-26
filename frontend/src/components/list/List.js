@@ -20,13 +20,12 @@ const List = () => {
   const dispatch = useDispatch();
   const ref = useRef();
   useEffect(() => {
-    if (listScrollToTop) {
+    if ((items.indexOf(item) === -1 && items.length > 0) || listScrollToTop) {
+      dispatch(
+        setCurrentItemId(getItems().length > 0 ? getItems()[0].itemId : -1)
+      );
       scrollToTop();
       dispatch(setListScrollToTop(false));
-    }
-    if (items.indexOf(item) === -1 && items.length > 0) {
-      dispatch(setCurrentItemId(getItems()[0].itemId));
-      scrollToTop();
     }
   });
   const mode = useSelector(state => state.ui.filterMode);

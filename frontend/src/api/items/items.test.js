@@ -16,6 +16,11 @@ describe("Items API - getItems()", () => {
     await getItems();
     expect(http.get).toHaveBeenCalledTimes(1);
   });
+
+  test("getItems() passes proper parameters to API's post() method", async () => {
+    await getItems();
+    expect(http.get).toHaveBeenCalledWith(apiUrl, apiUtils.getToken());
+  });
 });
 
 describe("Items API - createItem()", () => {
