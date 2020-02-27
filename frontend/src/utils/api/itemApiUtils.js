@@ -4,7 +4,9 @@ import {
   getItems as apiGetItems,
   createItem as apiCreateItem,
   updateItem as apiUpdateItem,
-  deleteItem as apiDeleteItem
+  deleteItem as apiDeleteItem,
+  generateAttachmentUrls as apiGenerateAttachmentUrls,
+  uploadFile
 } from "../../api/items/items";
 import log from "../log";
 import { addItem } from "../../actions";
@@ -109,12 +111,30 @@ const deleteItem = async (dispatch, item) => {
   }
 };
 
+const shareItem = async (dispatch, item) => {
+  feedbackUtils.showProgress(true, dispatch, "Sharing note...");
+  try {
+    const urls = await apiGenerateAttachmentUrls(item.itemId);
+    await uploadFile(urls.uploadUrl, item.text);
+    feedbackUtils.showProgress(false, dispatch);
+    return urls.downloadUrl;
+  } catch (error) {
+    log(
+      entity,
+      `Error sharing item with id: ${item.itemId}. Error message: ${error.message}`,
+      true
+    );
+    apiUtils.handleError(error, "Unable to share note", dispatch, false);
+  }
+};
+
 const itemApiUtils = {
   getItems,
   getItemById,
   createItem,
   updateItem,
-  deleteItem
+  deleteItem,
+  shareItem
 };
 
 export default itemApiUtils;

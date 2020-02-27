@@ -51,3 +51,7 @@ div,
 input {
   box-sizing: border-box;
 }
+
+a {
+  color: var(--palette-secondary-main);
+}

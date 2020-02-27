@@ -16,7 +16,8 @@ export const filterMode = {
 
 export const feedbackMode = {
   PROGRESS: "PROGRESS",
-  ERROR: "ERROR"
+  ERROR: "ERROR",
+  INFO: "INFO"
 };
 
 export const type = {

@@ -18,9 +18,16 @@ const showError = (dispatch, message) => {
   dispatch(setFeedbackMessage(message));
 };
 
+const showInfo = (dispatch, message) => {
+  dispatch(setShowFeedback(true));
+  dispatch(setFeedbackMode(feedbackMode.INFO));
+  dispatch(setFeedbackMessage(message));
+};
+
 const feedbackUtils = {
   showError,
-  showProgress
+  showProgress,
+  showInfo
 };
 
 export default feedbackUtils;

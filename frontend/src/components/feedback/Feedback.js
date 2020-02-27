@@ -10,15 +10,19 @@ const Feedback = () => {
   const isProgress = useCallback(() => {
     return mode === feedbackMode.PROGRESS;
   }, [mode]);
+  const isInfo = useCallback(() => {
+    return mode === feedbackMode.INFO;
+  }, [mode]);
   const showFeedback = useSelector(state => state.ui.showFeedback);
   const feedbackMessage = useSelector(state => state.ui.feedbackMessage);
   const dispatch = useDispatch();
 
-  const hideFeedback = () => {
+  const hideFeedback = (event, reason) => {
+    if (reason === "clickaway") return;
     dispatch(setShowFeedback(false));
   };
 
-  const autoHide = isProgress() ? {} : { autoHideDuration: 5000 };
+  const autoHide = isProgress() || isInfo() ? {} : { autoHideDuration: 5000 };
 
   const getAction = () => {
     if (isProgress()) return;

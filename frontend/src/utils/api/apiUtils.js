@@ -4,11 +4,12 @@ import userApiUtils from "./userApiUtils";
 const unauthorizedStatus = "401";
 const forbiddenStatus = "403";
 
-const handleError = (error, message, dispatch) => {
+const handleError = (error, message, dispatch, signOut = true) => {
   feedbackUtils.showProgress(false, dispatch);
   if (
-    error.message.startsWith(unauthorizedStatus) ||
-    error.message.startsWith(forbiddenStatus)
+    signOut &&
+    (error.message.startsWith(unauthorizedStatus) ||
+      error.message.startsWith(forbiddenStatus))
   ) {
     userApiUtils.signOut(dispatch);
     return;

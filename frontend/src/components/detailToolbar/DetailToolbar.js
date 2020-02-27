@@ -16,6 +16,7 @@ import {
   alertDialogMode
 } from "../../actions";
 import itemApiUtils from "../../utils/api/itemApiUtils";
+import feedbackUtils from "../../utils/feedbackUtils";
 
 const DetailToolbar = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,25 @@ const DetailToolbar = () => {
   const openAlertDialog = () => {
     dispatch(setAlertDialogMode(alertDialogMode.DELETE));
     dispatch(setShowAlertDialog(true));
+  };
+
+  const share = async () => {
+    const downloadUrl = await itemApiUtils.shareItem(dispatch, item);
+    if (downloadUrl == null) return;
+    const message = (
+      <div>
+        Use the following link to share your note:{" "}
+        <a
+          className="Feedback-link"
+          href={downloadUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {downloadUrl}
+        </a>
+      </div>
+    );
+    feedbackUtils.showInfo(dispatch, message);
   };
 
   return (
@@ -58,7 +78,7 @@ const DetailToolbar = () => {
           >
             <DeleteIcon />
           </IconButton>
-          <IconButton color="inherit" disabled={disabled}>
+          <IconButton color="inherit" disabled={disabled} onClick={share}>
             <ShareIcon />
           </IconButton>
         </Fragment>
