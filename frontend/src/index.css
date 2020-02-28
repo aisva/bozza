@@ -34,6 +34,11 @@
   --dialog-container-max-width: 1200px;
   --dialog-container-min-height: 50vh;
   --dialog-container-max-height: 90vh;
+  /* Dimensions (signer) */
+  --signer-card-width: 90vw;
+  --signer-card-max-width: 400px;
+  --signer-card-max-height: 90vh;
+  --signer-card-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.3);
   /* Dimensions (font) */
   --font-size-sm: 12px;
   --font-size-md: 14px;

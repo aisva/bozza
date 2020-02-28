@@ -1,4 +1,3 @@
-import apiUtils from "./apiUtils";
 import feedbackUtils from "../feedbackUtils";
 import {
   getItems as apiGetItems,
@@ -11,8 +10,9 @@ import {
 import log from "../log";
 import { addItem } from "../../actions";
 import Item from "../../models/Item";
+import apiUtils from "./apiUtils";
 
-const entity = "Item api utils";
+const entity = "Item API utils";
 
 const getItems = async dispatch => {
   feedbackUtils.showProgress(true, dispatch, "Loading notes...");

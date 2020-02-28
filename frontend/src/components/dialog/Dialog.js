@@ -15,7 +15,9 @@ import {
   setShowDialog,
   dialogMode,
   setListScrollToTop,
-  setShowMaster
+  setShowMaster,
+  setFilterMode,
+  filterMode
 } from "../../actions";
 import itemApiUtils from "../../utils/api/itemApiUtils";
 
@@ -58,12 +60,17 @@ const Dialog = () => {
     setErrors({});
   };
 
+  const handleNoteChange = event => {
+    setErrors({ note: null });
+    setNote(event.target.value);
+  };
+
   const validate = () => {
-    let errors = {};
-    if (note == null || note.trim() === "")
-      errors = { note: "Write a note", ...errors };
-    setErrors(errors);
-    return Object.entries(errors).length === 0;
+    if (note == null || note.trim() === "") {
+      setErrors({ note: "Write a note" });
+      return false;
+    }
+    return true;
   };
 
   const save = async () => {
@@ -80,6 +87,7 @@ const Dialog = () => {
     dispatch(
       !isEditMode() ? addItem(persistedItem) : updateItem(persistedItem)
     );
+    if (dueDate == null) dispatch(setFilterMode(filterMode.ALL));
     dispatch(setShowMaster(true));
     dispatch(setCurrentItemId(persistedItem.itemId));
     dispatch(setListScrollToTop(true));
@@ -106,7 +114,7 @@ const Dialog = () => {
           <TextField
             label="Note"
             value={note}
-            onChange={event => setNote(event.target.value)}
+            onChange={handleNoteChange}
             multiline
             error={errors.note != null}
             helperText={errors.note}

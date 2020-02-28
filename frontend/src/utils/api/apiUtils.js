@@ -17,8 +17,16 @@ const handleError = (error, message, dispatch, signOut = true) => {
   feedbackUtils.showError(dispatch, message);
 };
 
+const getErrorMessage = error => {
+  return error.message.substring(
+    error.message.indexOf(":") + 1,
+    error.message.length
+  );
+};
+
 const apiUtils = {
-  handleError
+  handleError,
+  getErrorMessage
 };
 
 export default apiUtils;

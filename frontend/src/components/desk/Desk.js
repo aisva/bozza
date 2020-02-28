@@ -5,7 +5,6 @@ import Reader from "../reader/Reader";
 import Dialog from "../dialog/Dialog";
 import List from "../list/List";
 import AlertDialog from "../alertDialog/AlertDialog";
-import Feedback from "../feedback/Feedback";
 import MasterToolbar from "../masterToolbar/MasterToolbar";
 import DetailToolbar from "../detailToolbar/DetailToolbar";
 import FloatingActionButton from "../floatingActionButton/FloatingActionButton";
@@ -40,7 +39,6 @@ const Desk = () => {
       </div>
       <Dialog />
       <AlertDialog />
-      <Feedback />
     </div>
   );
 };

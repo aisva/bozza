@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import Desk from "../desk/Desk";
 import Signer from "../signer/Signer";
+import Feedback from "../feedback/Feedback";
 import { useSelector, useDispatch } from "react-redux";
 import userApiUtils from "../../utils/api/userApiUtils";
 import { setShowDesk } from "../../actions";
@@ -12,7 +13,12 @@ const App = () => {
     dispatch(setShowDesk(userApiUtils.hasToken()));
   }, [dispatch]);
 
-  return showDesk ? <Desk /> : <Signer />;
+  return (
+    <Fragment>
+      {showDesk ? <Desk /> : <Signer />}
+      <Feedback />
+    </Fragment>
+  );
 };
 
 export default App;

@@ -1,0 +1,52 @@
+.Signer-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-tertiary-light);
+  overflow: auto;
+}
+
+.Signer-card {
+  background-color: var(--color-negative);
+  width: var(--signer-card-width);
+  max-width: var(--signer-card-max-width);
+  max-height: var(--signer-card-max-height);
+  box-shadow: var(--signer-card-shadow);
+  border-radius: var(--space-xs);
+  padding: var(--space-xl);
+  display: block;
+  overflow: auto;
+}
+
+@media (max-width: 400px) {
+  .Signer-card {
+    padding: var(--space-xl) var(--space-md);
+  }
+}
+
+.Signer-card > div {
+  padding-bottom: var(--space-sm);
+}
+
+.Signer-logo {
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--space-md);
+}
+
+.Signer-logo > img {
+  width: var(--space-xl);
+}
+
+div.Signer-button-area {
+  padding-top: var(--space-lg);
+  padding-bottom: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
