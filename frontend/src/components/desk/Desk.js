@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Desk.css";
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Reader from "../reader/Reader";
 import Dialog from "../dialog/Dialog";
 import List from "../list/List";
@@ -23,8 +23,6 @@ const Desk = () => {
   useEffect(() => {
     dispatch(setShowDialog(false));
   }, [dispatch]);
-
-  console.log(useStore().getState());
 
   return (
     <div className="Desk-root">

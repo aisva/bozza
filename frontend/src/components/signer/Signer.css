@@ -40,7 +40,8 @@
 }
 
 .Signer-logo > img {
-  width: var(--space-xl);
+  width: var(--signer-logo-width);
+  height: var(--signer-logo-height);
 }
 
 div.Signer-button-area {
