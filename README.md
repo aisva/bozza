@@ -30,29 +30,29 @@ The application will be accessible on: `http://localhost:3000`.
 
 1. Once Bozza’s frontend application is running, the login screen will show up. Press the *Sign up* button on the left. Then enter your *credentials* and press the *Sign up* button on the right. You will be redirected to Bozza’s desk.
 
-![bozza_1](https://github.com/aisva/bozza/readme-images/bozza_1.png)
+![bozza_1](https://github.com/aisva/bozza/tree/master/readme-images/bozza_1.png)
 
 2. Press the *Plus* button to add your first note.
 
-![bozza_2](https://github.com/aisva/bozza/readme-images/bozza_2.png)
+![bozza_2](https://github.com/aisva/bozza/tree/master/readme-images/bozza_2.png)
 
 3. A *dialog* will show up. Enter the text of your note.
 
-![bozza_3](https://github.com/aisva/bozza/readme-images/bozza_3.png)
+![bozza_3](https://github.com/aisva/bozza/tree/master/readme-images/bozza_3.png)
 
 4. Eventually, you can also add a *due date* to your note. This way, your note will be converted into a pending note or task. (*Note:* Messages will be available in the next version of the application.)
 
-![bozza_4](https://github.com/aisva/bozza/readme-images/bozza_4.png)
+![bozza_4](https://github.com/aisva/bozza/tree/master/readme-images/bozza_4.png)
 
 5. Click on a note on the list to open it. You can *edit* it, *remove* it or *share* it as a textual file via Bozza’s file server.
 
-![bozza_5](https://github.com/aisva/bozza/readme-images/bozza_5.png)
+![bozza_5](https://github.com/aisva/bozza/tree/master/readme-images/bozza_5.png)
 
 6. As your list of notes grows, you can filter it by entering some text in the *Search* field or see only your pending notes (tasks) by selecting the corresponding option in the *menu*.
 
-![bozza_6](https://github.com/aisva/bozza/readme-images/bozza_6.png)
+![bozza_6](https://github.com/aisva/bozza/tree/master/readme-images/bozza_6.png)
 
 ## Bozza’s responsive design
 Bozza’s frontend application has been designed to *run on every existing device* (phone, tablet or desktop), regardless of its screen density, screen size or aspect ratio.
 
-![bozza_responsive](https://github.com/aisva/bozza/readme-images/bozza_responsive.png)
+![bozza_responsive](https://github.com/aisva/bozza/tree/master/readme-images/bozza_responsive.png)
