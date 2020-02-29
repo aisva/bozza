@@ -21,6 +21,7 @@ You can run Bozza’s frontend application by executing the following commands:
 
 ```
 cd frontend
+npm install
 npm start
 ```
 
