@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "560dbefa-5d69-4d7f-a270-dcd163e2e47b",
+		"_postman_id": "348ccb17-764b-4016-b897-7ea1c1252f10",
 		"name": "Bozza",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -680,25 +680,25 @@
 	],
 	"variable": [
 		{
-			"id": "2f3d7953-d62d-4241-8a62-a114d56236b2",
+			"id": "9340e0ab-df52-4afc-9aa1-a08aac0c7cf2",
 			"key": "apiUrl",
-			"value": "",
+			"value": "https://9l920s4kx3.execute-api.us-east-1.amazonaws.com/dev",
 			"type": "string"
 		},
 		{
-			"id": "506c62ff-b385-4c2d-89f4-ac6ddce271be",
+			"id": "84ec5cda-7469-4cfc-961f-26ee3d3f2f5c",
 			"key": "version",
-			"value": "",
+			"value": "v1",
 			"type": "string"
 		},
 		{
-			"id": "f225a664-dd5e-4021-93e2-4f0778b89d5a",
+			"id": "e18a401c-ae15-4d6a-9492-0fdfa5c3009f",
 			"key": "authToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "aac65c1f-8b73-456f-a943-f153fc27a8db",
+			"id": "fe8d6761-3cb0-4e1d-a42f-a30e18f35e52",
 			"key": "itemId",
 			"value": "",
 			"type": "string"
