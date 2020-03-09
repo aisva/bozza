@@ -12,7 +12,22 @@ The Bozza application is split in two parts:
 * A **[frontend application](https://github.com/aisva/bozza/tree/master/frontend)**, that provides a GUI to access the RESTful API and has been built with [React](https://reactjs.org/), [React Hooks](https://reactjs.org/docs/hooks-intro.html) and [Redux](https://redux.js.org/).
 
 ## Accessing Bozza’s RESTful API
-Bozza’s RESTful API is hosted by [AWS](https://aws.amazon.com/). The *complete list of API methods* can be found in the following Postman collection: [Bozza.postman_collection.json](https://github.com/aisva/bozza/blob/master/backend/Bozza.postman_collection.json).
+Bozza’s RESTful API is ready to be deployed to [AWS](https://aws.amazon.com/), but you can also run it locally by executing the following commands in two different tabs of your terminal:
+
+```
+# Tab 1 (API Gateway and S3)
+export JWT_SECRET=[your_secret_code_for_generating_jwt]
+cd backend
+npm install
+npm run offline
+
+# Tab 2 (DynamoDB)
+export JWT_SECRET=[your_secret_code_for_generating_jwt]
+cd backend
+npm run db
+```
+
+Once Bozza’s RESTful API is running on your computer, you can find its *complete list of methods* in the following Postman collection: [Bozza.postman_collection.json](https://github.com/aisva/bozza/blob/master/backend/Bozza.postman_collection.json).
 
 Alternatively, you can access the API via Bozza’s *frontend application* (see below). 
 
